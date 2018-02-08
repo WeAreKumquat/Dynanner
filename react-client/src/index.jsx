@@ -1,6 +1,7 @@
+/* global document */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
+import Axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,12 +10,14 @@ class App extends React.Component {
     };
   }
   componentDidMount() {
-    $.ajax();
+    Axios.get('/');
   }
 
   render() {
     return (
-      <div Dynanner />
+      <div>
+        Dynanner
+      </div>
     );
   }
 }
