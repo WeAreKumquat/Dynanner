@@ -3,7 +3,7 @@ const routes = require('./routes');
 const path = require('path');
 
 const app = express();
-const pathway = path.join(__dirname, '/react-client');
+const pathway = path.join(__dirname, '/../react-client/dist');
 app.use(express.static(pathway));
 
 app.use('/', routes);
