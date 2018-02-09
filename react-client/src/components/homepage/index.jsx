@@ -9,9 +9,11 @@ class Home extends React.component {
   }
   render() {
     return (
-      <header>
-        Dynanner
-      </header>
+      <div>
+        <button>
+          Add New Event
+        </button>
+      </div>
     );
   }
 }
