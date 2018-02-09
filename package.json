@@ -5,18 +5,19 @@
   "main": "node server/index.js",
   "scripts": {
     "start": "node server/index.js",
+    "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jsMichot/immersion-2018-01-greenfield.git"
+    "url": "https://github.com/WeAreKumquat/Dynanner"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jsMichot/immersion-2018-01-greenfield/issues"
+    "url": "https://github.com/WeAreKumquat/Dynanner/issues"
   },
-  "homepage": "https://github.com/jsMichot/immersion-2018-01-greenfield#readme",
+  "homepage": "https://github.com/WeAreKumquat/Dynanner#readme",
   "devDependencies": {
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
