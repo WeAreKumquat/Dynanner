@@ -16,7 +16,10 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        Dynanner
+        <header>
+          <h1>Dynanner</h1>
+          {/* Log out */}
+        </header>
       </div>
     );
   }
