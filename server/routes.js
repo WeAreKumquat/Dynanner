@@ -13,6 +13,5 @@ router.get('/reviewEvent', (req, res) => {});
 
 router.post('/addEvent', (req, res) => {});
 router.post('/reviewEvent');
-router.post('/newFeedback');
 
 module.exports = router;
