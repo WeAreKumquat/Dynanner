@@ -12,7 +12,6 @@ const dotenv = require('dotenv').config();
 const app = express();
 const pathway = path.join(__dirname, '/../react-client/dist');
 app.use(express.static(pathway));
-
 app.use(cookieParser('wearekumquat'));
 app.use(session({ secret: 'wearekumquat' }));
 app.use(bodyParser.json());
@@ -30,9 +29,6 @@ passport.use('google', new GoogleStrategy({
   callbackURL: '/auth/google/callback',
   passReqToCallback: true,
 }, async (request, accessToken, refreshToken, profile, done) => {
-  console.log('accessToken ', accessToken);
-  console.log('refreshToken ', refreshToken);
-  console.log('profile ', profile);
   try {
     // check whether current user exists in db
     const existingUser = await db.User.findOne({ googleId: profile.id });

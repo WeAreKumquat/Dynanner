@@ -21,17 +21,16 @@ router.get(
         'https://www.googleapis.com/auth/calendar'],
   }),
 );
+
 router.get(
   '/auth/google/callback',
   passport.authenticate('google', {
-    // successRedirect: '/react-client/src/components/homepage/index.jsx',
     successRedirect: '/homepage',
-    // failureRedirect: '/react-client/src/components/login/index.jsx',
     failureRedirect: '/login',
   }),
 );
+
 router.get('/', (req, res) => {
-  console.log('ME!!!', req.user);
   const isLoggedIn = !!req.user;
 
   if (isLoggedIn) {
@@ -107,7 +106,6 @@ router.get('/reviewEvent', (req, res) => {
   } else {
     res.redirect('/login');
   }
-
 });
 
 router.post('/addEvent', (req, res) => {});
