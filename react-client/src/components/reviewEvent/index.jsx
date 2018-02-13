@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ReviewEvent extends React.component {
+class ReviewEvent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,6 +10,7 @@ class ReviewEvent extends React.component {
   render() {
     return (
       <div>
+        Review Event
         {/* review event form inputs */}
       </div>
     );

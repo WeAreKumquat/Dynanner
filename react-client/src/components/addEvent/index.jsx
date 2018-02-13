@@ -1,6 +1,6 @@
 import React from 'react';
 
-class AddEvent extends React.component {
+class AddEvent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,6 +10,7 @@ class AddEvent extends React.component {
   render() {
     return (
       <div>
+        <h1>Add an Event</h1>
         {/* add event form inputs */}
         {/* Google Calendar */}
       </div>
