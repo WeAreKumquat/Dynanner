@@ -1,7 +1,7 @@
 /* global document */
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Axios from 'axios';
+// import ReactDOM from 'react-dom';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,13 +16,12 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <header>
-          <h1>Dynanner</h1>
-          {/* Log out */}
-        </header>
+        Dynanner
       </div>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+// ReactDOM.render(<App />, document.getElementById('app'));
+export default App;
+

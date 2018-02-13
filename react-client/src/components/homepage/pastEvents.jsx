@@ -1,7 +1,11 @@
 import React from 'react';
 import PastEventEntry from './pastEventEntry';
 
-class PastEvents extends React.component {
+class PastEvents extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   render() {
     return (
       <div>

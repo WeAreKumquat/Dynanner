@@ -1,7 +1,11 @@
 import React from 'react';
 import EventListEntry from './eventListEntry';
 
-class EventsList extends React.component {
+class EventsList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   render() {
     return (
       <div>
