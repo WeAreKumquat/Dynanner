@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 
-const mongoURI = process.env.URI || 'mongodb:localhost/dynanner';
+const mongoURI = process.env.URI || 'mongodb://localhost/dynanner';
 mongoose.connect(mongoURI);
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error: '));
 
 const userSchema = mongoose.Schema({
-  googleId: { type: String, index: { unique: true, dropDups: true } },
-  email: { type: String, index: { unique: true, dropDups: true } },
+  googleId: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  name: { type: String },
 });
 const feedbackSchema = mongoose.Schema({
   pros: String,
