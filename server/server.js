@@ -6,6 +6,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const db = require('../database/index');
 const dotenv = require('dotenv').config();
 
@@ -21,7 +22,8 @@ app.use(express.static(pathway));
 
 // app.set('views', path.join(__dirname, '/../react-client/src'));
 
-app.use(cookieParser());
+app.use(cookieParser('wearekumquat'));
+app.use(session({ secret: 'wearekumquat' }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -34,7 +36,7 @@ passport.deserializeUser((obj, done) => {
 passport.use('google', new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'http://localhost:3000/auth/google/callback',
+  callbackURL: '/auth/google/callback',
   passReqToCallback: true,
 }, async (request, accessToken, refreshToken, profile, done) => {
   console.log('accessToken ', accessToken);
