@@ -1,6 +1,8 @@
-import App from '../react-client/src/index';
 import Login from '../react-client/src/components/login/index';
 import Home from '../react-client/src/components/homepage/index';
+import AddEvent from '../react-client/src/components/addEvent/index';
+import ReviewEvent from '../react-client/src/components/reviewEvent/index';
+import PastEvents from '../react-client/src/components/pastEvents/index';
 import template from '../react-client/template';
 
 const router = require('express').Router();
@@ -71,21 +73,44 @@ router.get('/homepage', (req, res) => {
 router.get('/addEvent', (req, res) => {
   const isLoggedIn = !!req.user;
   if (isLoggedIn) {
-    const currentUser = req.user.name;
-    const initialState = { currentUser };
-    const appString = renderToString(React.createElement(Home, initialState));
+    const appString = renderToString(React.createElement(AddEvent));
     res.send(template({
       body: appString,
       title: 'Add an Event',
-      initialState: JSON.stringify(initialState),
     }));
   } else {
     res.redirect('/login');
   }
 });
-router.get('/pastEvents', (req, res) => {});
-router.get('/reviewEvent', (req, res) => {});
+
+router.get('/pastEvents', (req, res) => {
+  const isLoggedIn = !!req.user;
+  if (isLoggedIn) {
+    const appString = renderToString(React.createElement(PastEvents));
+    res.send(template({
+      body: appString,
+      title: 'Your Past Events',
+    }));
+  } else {
+    res.redirect('/login');
+  }
+});
+
+router.get('/reviewEvent', (req, res) => {
+  const isLoggedIn = !!req.user;
+  if (isLoggedIn) {
+    const appString = renderToString(React.createElement(ReviewEvent));
+    res.send(template({
+      body: appString,
+      title: 'Review Your Event',
+    }));
+  } else {
+    res.redirect('/login');
+  }
+
+});
+
 router.post('/addEvent', (req, res) => {});
-router.post('/reviewEvent');
+router.post('/reviewEvent', (req, res) => {});
 
 module.exports = router;
