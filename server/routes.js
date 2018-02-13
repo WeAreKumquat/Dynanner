@@ -29,7 +29,7 @@ router.get(
   }),
 );
 router.get('/', (req, res) => {
-  // res.redirect('http://localhost:3000/auth/google/callback');
+  console.log('ME!!!', req.user);
   const isLoggedIn = !!req.user;
 
   if (isLoggedIn) {
@@ -40,8 +40,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-  console.log('ME!!!', req.user);
-  
   const isLoggedIn = !!req.user;
   if (isLoggedIn) {
     res.redirect('/homepage');
@@ -57,7 +55,8 @@ router.get('/login', (req, res) => {
 router.get('/homepage', (req, res) => {
   const isLoggedIn = !!req.user;
   if (isLoggedIn) {
-    const initialState = req.user.username;
+    const currentUser = req.user.name;
+    const initialState = { currentUser };
     const appString = renderToString(React.createElement(Home, initialState));
     res.send(template({
       body: appString,
@@ -69,7 +68,21 @@ router.get('/homepage', (req, res) => {
   }
 });
 
-router.get('/addEvent', (req, res) => {});
+router.get('/addEvent', (req, res) => {
+  const isLoggedIn = !!req.user;
+  if (isLoggedIn) {
+    const currentUser = req.user.name;
+    const initialState = { currentUser };
+    const appString = renderToString(React.createElement(Home, initialState));
+    res.send(template({
+      body: appString,
+      title: 'Add an Event',
+      initialState: JSON.stringify(initialState),
+    }));
+  } else {
+    res.redirect('/login');
+  }
+});
 router.get('/pastEvents', (req, res) => {});
 router.get('/reviewEvent', (req, res) => {});
 router.post('/addEvent', (req, res) => {});

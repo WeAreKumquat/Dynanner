@@ -4,13 +4,13 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: '',
     };
   }
   render() {
+    const { currentUser } = this.props;
     return (
       <div>
-        <h1>Welcome back, {this.state.currentUser}!</h1>
+        <h1>Welcome back, {currentUser}!</h1>
         <button>
           Add New Event
         </button>
