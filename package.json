@@ -40,6 +40,8 @@
     "passport-google-auth": "^1.0.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-engine": "^4.5.1",
+    "react-router": "^4.2.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.2",
     "require": "^2.4.20"

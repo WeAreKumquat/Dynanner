@@ -1,6 +1,6 @@
 /* global document */
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 
 class Login extends React.component {
   constructor(props) {
@@ -20,4 +20,6 @@ class Login extends React.component {
   }
 }
 
-ReactDOM.render(<Login />, document.getElementById('Login'));
+// ReactDOM.render(<Login />, document.getElementById('Login'));
+export default Login;
+

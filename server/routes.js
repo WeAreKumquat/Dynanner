@@ -6,7 +6,7 @@ const controller = require('./controllers');
 
 router.get('/', (req, res) => {});
 router.get('/login', (req, res) => {});
-router.get('/homepage', (req, res) => {});
+router.get('/home', (req, res) => {});
 router.get('/addEvent', (req, res) => {});
 router.get('/pastEvents', (req, res) => {});
 router.get('/reviewEvent', (req, res) => {});
