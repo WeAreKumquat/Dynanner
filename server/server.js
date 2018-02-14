@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const db = require('../database/index');
 const dotenv = require('dotenv').config();
+const controller = require('./controllers');
 
 const app = express();
 const pathway = path.join(__dirname, '/../react-client/dist');
@@ -30,6 +31,16 @@ passport.use('google', new GoogleStrategy({
   passReqToCallback: true,
 }, async (request, accessToken, refreshToken, profile, done) => {
   try {
+    // get events from google calendar
+    controller.getEvents(accessToken, (events) => {
+      const calEvents = JSON.parse(events);
+      calEvents.items.forEach((event) => {
+        console.log(event);
+        console.log(event.summary);
+        console.log(event.description);
+        console.log(event.start.date || event.start.dateTime);
+      });
+    });
     // check whether current user exists in db
     const existingUser = await db.User.findOne({ googleId: profile.id });
     if (existingUser) {
