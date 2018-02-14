@@ -1,3 +1,5 @@
+// takes the place of an index.html for server-side rendering
+
 export default ({ body, title, initialState }) => (
   `<!DOCTYPE html>
   <html lang="en">
