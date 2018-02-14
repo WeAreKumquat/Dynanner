@@ -21,8 +21,12 @@ router.get(
       ['https://www.googleapis.com/auth/plus.login',
         'https://www.googleapis.com/auth/plus.profile.emails.read',
         'https://www.googleapis.com/auth/calendar'],
+    prompt: 'consent',
+    successRedirect: '/homepage',
+    failureRedirect: '/login',
   }),
 );
+
 router.get(
   '/auth/google/callback',
   passport.authenticate('google', {
@@ -119,6 +123,7 @@ router.get('/reviewEvent', (req, res) => {
 });
 
 router.post('/addEvent', (req, res) => {});
+
 router.post('/reviewEvent', (req, res) => {});
 
 module.exports = router;
