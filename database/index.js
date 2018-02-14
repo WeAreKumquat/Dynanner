@@ -5,23 +5,30 @@ mongoose.connect(mongoURI);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 
-const userSchema = mongoose.Schema({
-  googleId: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  name: { type: String },
-});
 const feedbackSchema = mongoose.Schema({
   pros: String,
   cons: String,
   journal: String,
 });
+
 const eventSchema = mongoose.Schema({
-  userId: { type: String, index: { unique: true, dropDups: true } },
-  name: String,
+  // googleId: String,
+  title: String,
   category: String,
   tag: String,
+  description: String,
   feedback: [feedbackSchema],
-  timestamp: Date,
+  timeStart: Date,
+  timeEnd: Date,
+  isComplete: Boolean,
+});
+
+const userSchema = mongoose.Schema({
+  googleId: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  name: String,
+  firstName: String,
+  events: [eventSchema],
 });
 
 const User = mongoose.model('User', userSchema);

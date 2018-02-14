@@ -1,6 +1,6 @@
 import React from 'react';
 
-class EventReview extends React.component {
+class EventReview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

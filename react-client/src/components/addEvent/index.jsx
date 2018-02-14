@@ -1,22 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-class AddEvent extends React.component {
+class AddEvent extends React.Component {
   constructor(props) {
-    super(props) {
-      this.state = {
+    super(props);
+    this.state = {
 
-      };
     };
   }
   render() {
     return (
       <div>
+        <h1>Add an Event</h1>
         {/* add event form inputs */}
         {/* Google Calendar */}
       </div>
-    )
+    );
   }
-};
+}
 
 export default AddEvent;

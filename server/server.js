@@ -5,13 +5,16 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const db = require('../database/index');
 const dotenv = require('dotenv').config();
 
 const app = express();
 const pathway = path.join(__dirname, '/../react-client/dist');
 app.use(express.static(pathway));
-app.use(cookieParser());
+
+app.use(cookieParser('wearekumquat'));
+app.use(session({ secret: 'wearekumquat' }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -24,7 +27,7 @@ passport.deserializeUser((obj, done) => {
 passport.use('google', new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'http://localhost:3000/auth/google/callback',
+  callbackURL: '/auth/google/callback',
   passReqToCallback: true,
 }, async (request, accessToken, refreshToken, profile, done) => {
   console.log('accessToken ', accessToken);
@@ -41,6 +44,7 @@ passport.use('google', new GoogleStrategy({
       googleId: profile.id,
       email: profile.emails[0].value,
       name: profile.displayName,
+      firstName: profile.name.givenName,
     });
     await newUser.save();
     done(null, newUser);
