@@ -8,11 +8,11 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const db = require('../database/index');
 const dotenv = require('dotenv').config();
+const controller = require('./controllers');
 
 const app = express();
 const pathway = path.join(__dirname, '/../react-client/dist');
 app.use(express.static(pathway));
-
 app.use(cookieParser('wearekumquat'));
 app.use(session({ secret: 'wearekumquat' }));
 app.use(bodyParser.json());
@@ -30,10 +30,17 @@ passport.use('google', new GoogleStrategy({
   callbackURL: '/auth/google/callback',
   passReqToCallback: true,
 }, async (request, accessToken, refreshToken, profile, done) => {
-  console.log('accessToken ', accessToken);
-  console.log('refreshToken ', refreshToken);
-  console.log('profile ', profile);
   try {
+    // get events from google calendar
+    controller.getEvents(accessToken, (events) => {
+      const calEvents = JSON.parse(events);
+      calEvents.items.forEach((event) => {
+        console.log(event);
+        console.log(event.summary);
+        console.log(event.description);
+        console.log(event.start.date || event.start.dateTime);
+      });
+    });
     // check whether current user exists in db
     const existingUser = await db.User.findOne({ googleId: profile.id });
     if (existingUser) {
