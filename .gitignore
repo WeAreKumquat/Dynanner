@@ -3,6 +3,6 @@ bower_components/
 *.log
 
 build/
-dist/
+dist/bundle.js
 .env
 .vscode/
