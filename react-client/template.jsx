@@ -1,4 +1,6 @@
-export default ({ body, title, initialState }) => (
+// takes the place of an index.html for server-side rendering
+
+export default ({ body, title, initialState }) =>
   `<!DOCTYPE html>
   <html lang="en">
     <head>
@@ -11,12 +13,13 @@ export default ({ body, title, initialState }) => (
         crossorigin="anonymous">
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
         crossorigin="anonymous">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps">
+      <link rel="stylesheet" href="./dist/styles.css">
     </head>
     <body>
       <div id="root">
         ${body}
       </div>
     </body>
-  </html>`
-);
+  </html>`;
 

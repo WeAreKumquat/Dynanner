@@ -11,14 +11,11 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        Dynanner
-        {/* Google auth */}
-        <button className="btn btn-outline-secondary">
-          <a href="/auth/google">
-            <span className="fa fa-google-plus" />
-            Log In
-          </a>
-        </button>
+        <h1>Dynanner</h1>
+        {/* Google auth login */}
+        <a href="/auth/google" className="btn btn-outline-secondary">
+          <span className="fa fa-google-plus" />  Log In
+        </a>
       </div>
     );
   }
