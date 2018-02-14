@@ -54,6 +54,11 @@ router.get('/login', (req, res) => {
   }
 });
 
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/login');
+});
+
 router.get('/homepage', (req, res) => {
   const isLoggedIn = !!req.user;
   if (isLoggedIn) {
