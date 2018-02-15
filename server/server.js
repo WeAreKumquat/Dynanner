@@ -34,29 +34,34 @@ passport.use('google', new GoogleStrategy({
   passReqToCallback: true,
 }, async (request, accessToken, refreshToken, profile, done) => {
   try {
-    // get events from google calendar
-    controller.getEvents(accessToken, (events) => {
-      const calEvents = JSON.parse(events);
-      calEvents.items.forEach((event) => {
-        // console.log(event);
-        // console.log(event.summary);
-        // console.log(event.description);
-        // console.log(event.start.date || event.start.dateTime);
-      });
-    });
     // check whether current user exists in db
     const existingUser = await db.User.findOne({ googleId: profile.id });
+    let newUser = null;
+    // create new user if current user is not in db
+    if (!existingUser) {
+      newUser = new db.User({
+        googleId: profile.id,
+        email: profile.emails[0].value,
+        name: profile.displayName,
+        firstName: profile.name.givenName,
+      });
+      await newUser.save();
+    }
+    // get events from google calendar
+    await controller.getEvents(accessToken, (events) => {
+      const calEvents = JSON.parse(events);
+      calEvents.items.forEach(async (event) => {
+        await controller.addEvent(profile.id, {
+          title: event.summary,
+          description: event.description,
+        }, (newEvent) => {
+          console.log(newEvent);
+        });
+      });
+    });
     if (existingUser) {
       return done(null, existingUser);
     }
-    // create new user if current user is not in db
-    const newUser = new db.User({
-      googleId: profile.id,
-      email: profile.emails[0].value,
-      name: profile.displayName,
-      firstName: profile.name.givenName,
-    });
-    await newUser.save();
     done(null, newUser);
   } catch (error) {
     done(error, false, error.message);

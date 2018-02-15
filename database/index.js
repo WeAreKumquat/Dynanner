@@ -12,11 +12,10 @@ const feedbackSchema = mongoose.Schema({
 });
 
 const eventSchema = mongoose.Schema({
-  // googleId: String,
   title: String,
   category: String,
   tag: String,
-  description: String,
+  description: { type: String, unique: true, drupDups: true },
   feedback: [feedbackSchema],
   timeStart: Date,
   timeEnd: Date,
@@ -29,6 +28,8 @@ const userSchema = mongoose.Schema({
   name: String,
   firstName: String,
   events: [eventSchema],
+}, {
+  usePushEach: true,
 });
 
 const User = mongoose.model('User', userSchema);

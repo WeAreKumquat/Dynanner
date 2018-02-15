@@ -7,7 +7,6 @@ import PastEvents from '../react-client/src/components/pastEvents/index';
 import template from '../react-client/template';
 
 const router = require('express').Router();
-const request = require('request');
 const passport = require('passport');
 const controller = require('./controllers');
 const db = require('../database/helpers');
@@ -137,6 +136,12 @@ router.get('/api/upcomingEvents', (req, res) => {
 });
 
 router.post('/api/addEvent', (req, res) => {});
+router.post('/api/addEvent', async (req, res) => {
+  await controller.addEvent(req.user.googleId, req.body.event, (newEvent) => {
+    console.log(newEvent);
+    res.redirect('/pastEvents');
+  });
+});
 
 router.post('/api/reviewEvent', (req, res) => {});
 
