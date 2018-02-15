@@ -5,12 +5,12 @@ import AddEvent from '../react-client/src/components/addEvent/index';
 import ReviewEvent from '../react-client/src/components/reviewEvent/index';
 import PastEvents from '../react-client/src/components/pastEvents/index';
 import template from '../react-client/template';
-// import headerTemplate from '../react-client/headerTemplate';
 
 const router = require('express').Router();
 const request = require('request');
 const passport = require('passport');
 const controller = require('./controllers');
+const db = require('../database/helpers');
 const React = require('react');
 const { renderToString } = require('react-dom/server');
 
@@ -66,7 +66,7 @@ router.get('/logout', (req, res) => {
 router.get('/homepage', (req, res) => {
   const isLoggedIn = !!req.user;
   if (isLoggedIn) {
-    const currentUser = req.user.name;
+    const currentUser = req.user.firstName;
     const initialState = { currentUser };
     const homeComponent = React.createElement(Home, initialState);
     const appString = renderToString(React.createElement(Header, initialState, homeComponent));
@@ -122,8 +122,20 @@ router.get('/reviewEvent', (req, res) => {
   }
 });
 
-router.post('/addEvent', (req, res) => {});
+router.get('/api/upcomingEvents', (req, res) => {
+  const currentUserId = req.user.googleId;
+  // const currentUserId = req.query.googleId; // for testing in Postman
+  db.fetchUpcomingEvents(currentUserId, (error, events) => {
+    if (error) {
+      console.error(error);
+    } else {
+      res.send(events);
+    }
+  });
+});
 
-router.post('/reviewEvent', (req, res) => {});
+router.post('/api/addEvent', (req, res) => {});
+
+router.post('/api/reviewEvent', (req, res) => {});
 
 module.exports = router;
