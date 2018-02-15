@@ -5,11 +5,11 @@ import AddEvent from '../react-client/src/components/addEvent/index';
 import ReviewEvent from '../react-client/src/components/reviewEvent/index';
 import PastEvents from '../react-client/src/components/pastEvents/index';
 import template from '../react-client/template';
-// import headerTemplate from '../react-client/headerTemplate';
 
 const router = require('express').Router();
 const passport = require('passport');
 const controller = require('./controllers');
+const db = require('../database/helpers');
 const React = require('react');
 const { renderToString } = require('react-dom/server');
 
@@ -65,9 +65,10 @@ router.get('/logout', (req, res) => {
 router.get('/homepage', (req, res) => {
   const isLoggedIn = !!req.user;
   if (isLoggedIn) {
-    const currentUser = req.user.name;
-    const initialState = { currentUser };
-    const homeComponent = React.createElement(Home, initialState);
+    const currentUser = req.user.firstName;
+    const currentUserId = req.user.googleId;
+    const initialState = { currentUser, currentUserId };
+    const homeComponent = React.createElement(Home);
     const appString = renderToString(React.createElement(Header, initialState, homeComponent));
     res.send(template({
       body: appString,
@@ -121,6 +122,20 @@ router.get('/reviewEvent', (req, res) => {
   }
 });
 
+router.get('/api/upcomingEvents', (req, res) => {
+  console.log(req);
+  // const currentUserId = req.user.googleId;
+  const currentUserId = req.query.googleId; // for testing in Postman
+  db.fetchUpcomingEvents(currentUserId, (error, events) => {
+    if (error) {
+      console.error(error);
+    } else {
+      res.send(events);
+    }
+  });
+});
+
+router.post('/api/addEvent', (req, res) => {});
 router.post('/api/addEvent', async (req, res) => {
   await controller.addEvent(req.user.googleId, req.body.event, (newEvent) => {
     console.log(newEvent);
@@ -128,6 +143,6 @@ router.post('/api/addEvent', async (req, res) => {
   });
 });
 
-router.post('/reviewEvent', (req, res) => {});
+router.post('/api/reviewEvent', (req, res) => {});
 
 module.exports = router;

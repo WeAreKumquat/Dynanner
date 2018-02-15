@@ -9,7 +9,7 @@ class ReviewEvent extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="body">
         Review Event
         {/* review event form inputs */}
       </div>

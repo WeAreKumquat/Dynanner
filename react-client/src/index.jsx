@@ -10,7 +10,10 @@ class App extends React.Component {
     };
   }
   componentDidMount() {
-    Axios.get('/');
+    Axios.get('/')
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   render() {

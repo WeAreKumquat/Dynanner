@@ -1,9 +1,10 @@
-// passes initial state to Home component from server: https://medium.com/front-end-hacking/server-side-rendering-with-react-and-express-382591bfc77c
+// passes initial state to Header component from server: https://medium.com/front-end-hacking/server-side-rendering-with-react-and-express-382591bfc77c
 
 /* global document */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './components/homepage/index';
+// import Home from './components/homepage/index';
+import Header from './header';
 
-ReactDOM.render(<Home {...window.__APP_INITIAL_STATE__} />, document.getElementById('root'));
+ReactDOM.hydrate(<Header {...window.APP_INITIAL_STATE} />, document.getElementById('root'));
 
