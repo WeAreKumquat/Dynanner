@@ -6,7 +6,7 @@ const getEvents = async (token, callback) => {
     method: 'GET',
     url: 'https://www.googleapis.com/calendar/v3/calendars/primary/events',
     qs: {
-      access_token: token, maxResults: 5, singleEvents: true, orderBy: 'startTime',
+      access_token: token, singleEvents: true, orderBy: 'startTime',
     },
   };
   await request(options, (error, response, body) => {
