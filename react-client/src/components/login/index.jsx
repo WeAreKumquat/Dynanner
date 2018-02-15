@@ -3,9 +3,7 @@ import React from 'react';
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isLoggedIn: false,
-    };
+    this.state = {};
   }
 
   render() {
@@ -22,4 +20,3 @@ class Login extends React.Component {
 }
 
 export default Login;
-

@@ -1,5 +1,5 @@
 import React from 'react';
-import PastEventEntry from './pastEventEntry';
+import PastEventEntry from './pastEventEntry.jsx';
 
 class PastEvents extends React.Component {
   constructor(props) {
