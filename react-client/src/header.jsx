@@ -23,7 +23,8 @@ class Header extends React.Component {
           </div>
         </nav>
         <div>
-          {this.props.children}
+          {React.cloneElement(this.props.children, this.props)}
+          {/* {this.props.children} */}
         </div>
       </div>
     );

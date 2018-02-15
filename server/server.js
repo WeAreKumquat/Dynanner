@@ -18,12 +18,15 @@ app.use(session({ secret: 'wearekumquat' }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.serializeUser((user, done) => {
   done(null, user);
 });
+
 passport.deserializeUser((obj, done) => {
   done(null, obj);
 });
+
 passport.use('google', new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -64,6 +67,7 @@ passport.use('google', new GoogleStrategy({
     done(error, false, error.message);
   }
 }));
+
 app.use('/', routes);
 
 module.exports = app;

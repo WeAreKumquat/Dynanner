@@ -9,7 +9,7 @@ class AddEvent extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="body">
         <h1>Add an Event</h1>
         {/* add event form inputs */}
         {/* Google Calendar */}

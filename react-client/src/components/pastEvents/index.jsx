@@ -7,7 +7,7 @@ class PastEvents extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="body">
         Past Events
         {/* work/play dropdown */}
         {/* event type dropdown */}
