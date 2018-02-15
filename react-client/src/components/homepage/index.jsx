@@ -9,18 +9,28 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentUser: '',
     };
   }
 
+  componentDidMount() {
+    Axios.get('/getCurrentUser')
+      .then((response) => {
+        this.setState({currentUser: response.data});
+      })
+      .catch((error) => {
+        console.error('error getting current user', error);
+      });
+  }
   render() {
-    const { currentUser, currentUserId } = this.props;
+    const { currentUser } = this.state;
     return (
       <div className="body">
         <h3>Welcome back, {currentUser}!</h3>
         <Link to="/addEvent" className="btn btn-outline-secondary">
           <span className="fa fa-plus" />  Add New Event
         </Link>
-        <UpcomingEvents currentUserId={currentUserId} />
+        <UpcomingEvents />
         <PastEvents />
       </div>
     );
