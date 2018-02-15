@@ -8,7 +8,6 @@ import template from '../react-client/template';
 // import headerTemplate from '../react-client/headerTemplate';
 
 const router = require('express').Router();
-const request = require('request');
 const passport = require('passport');
 const controller = require('./controllers');
 const React = require('react');
@@ -122,7 +121,12 @@ router.get('/reviewEvent', (req, res) => {
   }
 });
 
-router.post('/addEvent', (req, res) => {});
+router.post('/api/addEvent', async (req, res) => {
+  await controller.addEvent(req.user.googleId, req.body.event, (newEvent) => {
+    console.log(newEvent);
+    res.redirect('/pastEvents');
+  });
+});
 
 router.post('/reviewEvent', (req, res) => {});
 
