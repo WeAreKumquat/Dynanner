@@ -17,7 +17,12 @@ const getEvents = async (token, callback) => {
 
 const addEvent = async (id, event, callback) => {
   await db.User.findOne({ googleId: id }, async (err, user) => {
-    const existingEvent = await db.IEvent.findOne({ description: event.description });
+    const existingEvent = user.events.reduce((doesExist, e) => {
+      if (e.title === event.title && e.description === event.description) {
+        doesExist = true;
+      }
+      return doesExist;
+    }, false);
     if (!existingEvent) {
       const newEvent = new db.IEvent({
         title: event.title || '',
@@ -26,23 +31,48 @@ const addEvent = async (id, event, callback) => {
         description: event.description || '',
         isComplete: event.isComplete || false,
       });
-      await newEvent.save();
-      user.events.addToSet(newEvent);
+      user.events.push(newEvent);
       await user.save();
-    } else {
-      user.events.forEach((e) => {
-        if (e.description === event.description) {
-          if (event.title) { e.title = event.title; }
-          if (event.category) { e.category = event.category; }
-          if (event.date) { e.date = event.date; }
-          if (event.isComplete) { e.isComplete = event.isComplete; }
-          user.save();
-        }
-      });
     }
     callback(user);
   });
 };
 
+const updateEvent = async (id, event, callback) => {
+  await db.User.findOne({ googleId: id }, async (err, user) => {
+    user.events.forEach((e) => {
+      if (e.description === event.description) {
+        if (event.title) { e.title = event.title; }
+        if (event.category) { e.category = event.category; }
+        if (event.date) { e.date = event.date; }
+        if (event.feedback) {
+          const newFeedback = new db.Feedback({
+            pros: event.feedback.pros.reduce((allPros, pro) => {
+              allPros += `\n ${pro}`;
+              return allPros;
+            }, ''),
+            cons: event.feedback.cons.reduce((allCons, con) => {
+              allCons += `\n ${con}`;
+              return allCons;
+            }, ''),
+            journal: event.feedback.journal,
+          });
+          e.feedback.push(newFeedback);
+          e.isComplete = true;
+        }
+        user.save();
+      }
+    });
+  });
+};
+
+const getEmail = async (id, callback) => {
+  await db.User.findOne({ googleId: id }, async (err, user) => {
+    callback(user.email);
+  });
+};
+
 module.exports.getEvents = getEvents;
 module.exports.addEvent = addEvent;
+module.exports.getEmail = getEmail;
+module.exports.updateEvent = updateEvent;
