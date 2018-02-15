@@ -6,7 +6,7 @@ const getEvents = async (token, callback) => {
     method: 'GET',
     url: 'https://www.googleapis.com/calendar/v3/calendars/primary/events',
     qs: {
-      access_token: token, maxResults: 5, singleEvents: true, orderBy: 'startTime',
+      access_token: token, singleEvents: true, orderBy: 'startTime',
     },
   };
   await request(options, (error, response, body) => {
@@ -15,19 +15,23 @@ const getEvents = async (token, callback) => {
   });
 };
 
-const addEvent = (id, event, callback) => {
-  db.User.findOne({ googleId: id }, async (err, user) => {
-    const newEvent = new db.IEvent({
-      title: event.title || '',
-      category: event.category || '',
-      tag: event.tag || '',
-      description: event.description || '',
-      timeStart: event.timeStart || new Date(),
-      isComplete: event.isComplete || false,
-    });
-    user.events.push(newEvent);
-    await user.save();
-    callback(newEvent);
+const addEvent = async (id, event, callback) => {
+  await db.User.findOne({ googleId: id }, async (err, user) => {
+    const existingEvent = await db.IEvent.findOne({ description: event.description });
+    if (!existingEvent) {
+      const newEvent = new db.IEvent({
+        title: event.title || '',
+        category: event.category || '',
+        tag: event.tag || '',
+        description: event.description || '',
+        timeStart: event.timeStart || new Date(),
+        isComplete: event.isComplete || false,
+      });
+      await newEvent.save();
+      user.events.addToSet(newEvent);
+      await user.save();
+    }
+    callback('done');
   });
 };
 

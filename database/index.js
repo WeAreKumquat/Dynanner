@@ -15,11 +15,13 @@ const eventSchema = mongoose.Schema({
   title: String,
   category: String,
   tag: String,
-  description: { type: String, unique: true, drupDups: true },
+  description: { type: String, index: true, unique: true },
   feedback: [feedbackSchema],
   timeStart: Date,
   timeEnd: Date,
   isComplete: Boolean,
+}, {
+  usePushEach: true,
 });
 
 const userSchema = mongoose.Schema({

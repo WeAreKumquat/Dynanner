@@ -49,8 +49,8 @@ passport.use('google', new GoogleStrategy({
     }
     // get events from google calendar
     await controller.getEvents(accessToken, (events) => {
-      const calEvents = JSON.parse(events);
-      calEvents.items.forEach(async (event) => {
+      const calEvents = JSON.parse(events).items.slice(-5);
+      calEvents.forEach(async (event) => {
         await controller.addEvent(profile.id, {
           title: event.summary,
           description: event.description,
