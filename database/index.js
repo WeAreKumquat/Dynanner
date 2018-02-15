@@ -15,10 +15,9 @@ const eventSchema = mongoose.Schema({
   title: String,
   category: String,
   tag: String,
-  description: { type: String, index: true, unique: true },
+  description: String,
   feedback: [feedbackSchema],
-  timeStart: Date,
-  timeEnd: Date,
+  date: String,
   isComplete: Boolean,
 }, {
   usePushEach: true,
