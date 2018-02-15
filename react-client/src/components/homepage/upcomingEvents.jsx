@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import UpcomingEventEntry from './upcomingEventEntry';
+import UpcomingEventEntry from './upcomingEventEntry.jsx';
 
 class UpcomingEvents extends React.Component {
   constructor(props) {
@@ -11,16 +11,14 @@ class UpcomingEvents extends React.Component {
     this.getUpcomingEvents = this.getUpcomingEvents.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getUpcomingEvents();
   }
 
-  async getUpcomingEvents() {
-    console.log('HELLOOOOOOO');
-    await Axios(`http://localhost:3000/api/upcomingEvents?googleId=${this.props.currentUserId}`)
+  getUpcomingEvents() {
+    Axios('/api/upcomingEvents')
       .then((response) => {
-        console.log(response);
-        this.state = { events: response.data };
+        this.setState({ events: response.data });
       })
       .catch((error) => {
         console.error('upcoming event error', error);
@@ -31,8 +29,8 @@ class UpcomingEvents extends React.Component {
     return (
       <div>
         Upcoming Events
-        {this.state.events.map(event => (
-          <UpcomingEventEntry event={event} />
+        {this.state.events.map((event, i) => (
+          <UpcomingEventEntry event={event} key={i} />
         ))}
       </div>
     );

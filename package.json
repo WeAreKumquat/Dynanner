@@ -4,9 +4,9 @@
   "description": "the dynamic journal-planner",
   "main": "node server/index.js",
   "scripts": {
-    "start": "node server/start.js",
+    "start": "node server/index.js",
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/start.js"
+    "server-dev": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -46,6 +46,7 @@
     "passport-google-oauth2": "^0.1.6",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "require": "^2.4.20"
