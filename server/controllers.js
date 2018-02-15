@@ -22,16 +22,25 @@ const addEvent = async (id, event, callback) => {
       const newEvent = new db.IEvent({
         title: event.title || '',
         category: event.category || '',
-        tag: event.tag || '',
+        date: event.date || 'you will know when the time is right',
         description: event.description || '',
-        timeStart: event.timeStart || new Date(),
         isComplete: event.isComplete || false,
       });
       await newEvent.save();
       user.events.addToSet(newEvent);
       await user.save();
+    } else {
+      user.events.forEach((e) => {
+        if (e.description === event.description) {
+          if (event.title) { e.title = event.title; }
+          if (event.category) { e.category = event.category; }
+          if (event.date) { e.date = event.date; }
+          if (event.isComplete) { e.isComplete = event.isComplete; }
+          user.save();
+        }
+      });
     }
-    callback('done');
+    callback(user);
   });
 };
 
