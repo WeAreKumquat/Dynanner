@@ -38,10 +38,10 @@ passport.use('google', new GoogleStrategy({
     controller.getEvents(accessToken, (events) => {
       const calEvents = JSON.parse(events);
       calEvents.items.forEach((event) => {
-        console.log(event);
-        console.log(event.summary);
-        console.log(event.description);
-        console.log(event.start.date || event.start.dateTime);
+        // console.log(event);
+        // console.log(event.summary);
+        // console.log(event.description);
+        // console.log(event.start.date || event.start.dateTime);
       });
     });
     // check whether current user exists in db

@@ -67,8 +67,9 @@ router.get('/homepage', (req, res) => {
   const isLoggedIn = !!req.user;
   if (isLoggedIn) {
     const currentUser = req.user.firstName;
-    const initialState = { currentUser };
-    const homeComponent = React.createElement(Home, initialState);
+    const currentUserId = req.user.googleId;
+    const initialState = { currentUser, currentUserId };
+    const homeComponent = React.createElement(Home);
     const appString = renderToString(React.createElement(Header, initialState, homeComponent));
     res.send(template({
       body: appString,
@@ -123,8 +124,9 @@ router.get('/reviewEvent', (req, res) => {
 });
 
 router.get('/api/upcomingEvents', (req, res) => {
-  const currentUserId = req.user.googleId;
-  // const currentUserId = req.query.googleId; // for testing in Postman
+  console.log(req);
+  // const currentUserId = req.user.googleId;
+  const currentUserId = req.query.googleId; // for testing in Postman
   db.fetchUpcomingEvents(currentUserId, (error, events) => {
     if (error) {
       console.error(error);
