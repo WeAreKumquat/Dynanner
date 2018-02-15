@@ -9,7 +9,8 @@ class PastEvents extends React.Component {
   render() {
     return (
       <div>
-        Past Events
+        <h4>Your Past Logs</h4>
+        <h4>Most Recent</h4>
         <PastEventEntry />
       </div>
     );
