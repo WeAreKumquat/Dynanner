@@ -1,6 +1,9 @@
 import React from 'react';
 
-const UpcomingEventEntry = ({ title, description }) => {
+const UpcomingEventEntry = ({ event, key }) => {
+  const { title, description } = event;
+  console.log('title', title);
+  console.log('desc', description);
   return (
     <div>
       Title: {title}
