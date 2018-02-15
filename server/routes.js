@@ -13,7 +13,7 @@ router.get(
         'https://www.googleapis.com/auth/calendar'],
     prompt: 'consent',
     successRedirect: '/',
-    failureRedirect: '/login',
+    failureRedirect: '/',
   }),
 );
 
@@ -21,7 +21,7 @@ router.get(
   '/auth/google/callback',
   passport.authenticate('google', {
     successRedirect: '/',
-    failureRedirect: '/login',
+    failureRedirect: '/',
   }),
 );
 
@@ -40,9 +40,13 @@ router.get('/isAuthenticated', (req, res) => {
   res.send(isLoggedIn);
 });
 
+router.get('/getCurrentUser', (req, res) => {
+  res.send(req.user.firstName);
+});
+
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/login');
+  res.redirect('/');
 });
 
 router.get('/api/upcomingEvents', (req, res) => {
@@ -52,6 +56,7 @@ router.get('/api/upcomingEvents', (req, res) => {
     if (error) {
       console.error(error);
     } else {
+      console.log(events);
       res.send(events);
     }
   });
