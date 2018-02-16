@@ -64,7 +64,7 @@ class AddEvent extends React.Component {
       <div className="body">
         <h1>Add an Event</h1>
         <div>
-          <select name="category" onChange={this.handleChange}>
+          <select name="category" onChange={this.handleChange} value={this.state.category}>
             <option value="work">work</option>
             <option value="play">play</option>
           </select>
