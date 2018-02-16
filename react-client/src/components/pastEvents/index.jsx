@@ -8,11 +8,14 @@ class PastEvents extends React.Component {
     super(props);
     this.state = {
       currentReview: '',
+      currentReviewTitle: '',
     };
     this.setCurrentReview = this.setCurrentReview.bind(this);
   }
 
-  setCurrentReview(eventId) {
+  setCurrentReview(eventId, title) {
+    this.setState({ currentReviewTitle: title });
+
     Axios.get('/api/getReview', {
       params: { eventId },
     })
@@ -26,7 +29,7 @@ class PastEvents extends React.Component {
   }
 
   render() {
-    const { currentReview } = this.state;
+    const { currentReview, currentReviewTitle } = this.state;
 
     return (
       <div className="body">
@@ -34,8 +37,8 @@ class PastEvents extends React.Component {
         <div className="container-fluid contents">
           <div className="row">
             <div className="col-lg-8">
-              {/* currently selected event */}
-              <EventReview currentReview={currentReview} />
+              {/* currently selected event's review */}
+              <EventReview currentReview={currentReview} currentReviewTitle={currentReviewTitle} />
             </div>
             <div className="col-lg-4">
               {/* work/play drop-down */}

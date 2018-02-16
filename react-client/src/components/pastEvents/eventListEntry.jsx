@@ -11,7 +11,7 @@ class EventListEntry extends React.Component {
     // pass clicked event's id into setCurrentReview
     const { setCurrentReview, event } = this.props;
 
-    setCurrentReview(event._id);
+    setCurrentReview(event._id, event.title);
     console.log(event);
   }
 
