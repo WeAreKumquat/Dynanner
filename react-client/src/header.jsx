@@ -21,7 +21,7 @@ class Header extends React.Component {
             </div>
             <p className="navbar-text navbar-right">
               <a href="/logout" className="btn btn-outline-secondary">
-                <span className="fa fa-sign-out" />  Log Out
+                <span className="fa fa-sign-out-alt" />  Log Out
               </a>
             </p>
           </div>
