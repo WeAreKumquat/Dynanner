@@ -42,7 +42,7 @@ class AddEvent extends React.Component {
       },
     })
       .then(() => {
-        // route to '/pastEvents'
+        // trigger redirect to '/pastEvents'
         this.setState({ redirect: true });
       })
       .catch((error) => {
