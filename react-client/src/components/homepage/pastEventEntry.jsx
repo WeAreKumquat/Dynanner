@@ -1,9 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import PastEvents from '../pastEvents/index.jsx';
 
-const PastEventEntry = (props) => {
+const PastEventEntry = ({event, key}) => {
+  const { title } = event;
+
   return (
     <div>
-      {/* pastEventEntry */}
+      <Link to="/pastEvents" component={PastEvents}>
+        {title}
+      </Link>
     </div>
   );
 };
