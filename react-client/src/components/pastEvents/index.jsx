@@ -17,7 +17,7 @@ class PastEvents extends React.Component {
   }
 
   componentDidMount() {
-    this.getPastEvents();
+    this.getPastEvents(this.props.location.state.category);
   }
 
   getPastEvents(category) {
