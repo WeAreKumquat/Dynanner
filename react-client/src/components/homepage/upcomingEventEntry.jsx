@@ -1,26 +1,40 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const UpcomingEventEntry = ({ event, key }) => {
-  const { title, description } = event;
-  const id = `#${title}`;
+class UpcomingEventEntry extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-  return (
-    <div className="card">
-      <div className="card-header" id="headingOne">
-        <h5 className="mb-0">
-          <button className="btn btn-link collapsed" data-toggle="collapse" data-target={id} aria-expanded="false" aria-controls="collapseOne">
-            {title}
-          </button>
-        </h5>
-      </div>
+  render() {
+    const { _id, title, description } = this.props.event;
+    const id = `#${title}`;
 
-      <div id={title} className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-        <div className="card-body">
-          {description}
+    return (
+      <div className="card">
+        <div className="card-header" id="headingOne">
+          <h5 className="mb-0">
+            <Link to="/reviewEvent">
+              <span className="fa fa-check" />
+            </Link>
+            <button className="btn btn-link collapsed" data-toggle="collapse" data-target={id} aria-expanded="false" aria-controls="collapseOne">
+              {title}
+            </button>
+            <a href="/">
+              <span className="fa fa-trash-alt" />
+            </a>
+          </h5>
+        </div>
+
+        <div id={title} className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+          <div className="card-body">
+            {description}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default UpcomingEventEntry;
