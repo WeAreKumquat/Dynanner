@@ -2,14 +2,15 @@ import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import PastEvents from '../pastEvents/index.jsx';
+import DatePicker from 'react-bootstrap-date-picker';
 
 class AddEvent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: 'play',
+      category: 'work',
       title: 'event',
-      date: '2018-02-15',
+      date: '2018-04-15',
       description: 'just do it',
       email: 'address@domainName.com',
       redirect: false,
@@ -17,6 +18,7 @@ class AddEvent extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getEmail = this.getEmail.bind(this);
+    this.changeDate = this.changeDate.bind(this);
   }
 
   componentDidMount() {
@@ -25,7 +27,7 @@ class AddEvent extends React.Component {
   getEmail() {
     axios.get('/api/getEmail')
       .then((email) => {
-        const emailUserCal = email.replace('@', '%40');
+        const emailUserCal = email.data.replace('@', '%40');
         this.setState({
           email: emailUserCal
         });
@@ -33,29 +35,37 @@ class AddEvent extends React.Component {
       .catch((error) => { console.log(`Error trying to get user's email: ${error}`); });
   }
   handleSubmit() {
-    this.refs.title.value = '';
-    this.refs.date.value = '';
-    this.refs.description.value = '';
-    axios.post('/api/addEvent', {
-      event: {
-        category: this.state.category,
-        title: this.state.title,
-        date: this.state.date,
-        description: this.state.description,
-      },
-    })
-      .then(() => {
-        // trigger redirect to '/pastEvents'
-        this.setState({ redirect: true });
+    if (this.state.date) {
+      this.refs.title.value = '';
+      this.refs.description.value = '';
+      axios.post('/api/addEvent', {
+        event: {
+          category: this.state.category,
+          title: this.state.title,
+          date: this.state.date,
+          description: this.state.description,
+        },
       })
-      .catch((error) => {
-        console.log(`Error from axios post addEvent: ${error}`);
-      });
+        .then(() => {
+          // trigger redirect to '/pastEvents'
+          this.setState({ redirect: true });
+        })
+        .catch((error) => {
+          console.log(`Error from axios post addEvent: ${error}`);
+        });
+    } else {
+      alert('Date needs to be between 2018 and 2118. Please select a valid date and re-submit the event.');
+    }
   }
   handleChange(event) {
     const { name } = event.target;
     this.setState({
       [name]: event.target.value,
+    });
+  }
+  changeDate(event) {
+    this.setState({
+      date: event,
     });
   }
   render() {
@@ -76,7 +86,10 @@ class AddEvent extends React.Component {
           <br />
           <div>
             Date: &ensp;
-            <input type="text" onChange={this.handleChange} name="date" ref="date" />
+            <DatePicker id="example-datepicker" dateFormat="YYYY-MM-DD" value={this.state.date} onChange={this.changeDate}
+              minDate="2018-02-16T12:00:00.000Z"
+              maxDate="2118-01-01T12:00:00.000Z"
+            />
           </div>
           <br />
           <div>
