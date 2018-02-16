@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import PastEvents from '../pastEvents/index.jsx';
-import DatePicker from "react-bootstrap-date-picker";
+import DatePicker from 'react-bootstrap-date-picker';
 
 class AddEvent extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class AddEvent extends React.Component {
     this.state = {
       category: 'play',
       title: 'event',
-      date: '2018-02-15',
+      date: '2018-04-15',
       description: 'just do it',
       email: 'address@domainName.com',
       redirect: false,
@@ -18,6 +18,7 @@ class AddEvent extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getEmail = this.getEmail.bind(this);
+    this.changeDate = this.changeDate.bind(this);
   }
 
   componentDidMount() {
@@ -35,7 +36,6 @@ class AddEvent extends React.Component {
   }
   handleSubmit() {
     this.refs.title.value = '';
-    this.refs.date.value = '';
     this.refs.description.value = '';
     axios.post('/api/addEvent', {
       event: {
@@ -59,6 +59,11 @@ class AddEvent extends React.Component {
       [name]: event.target.value,
     });
   }
+  changeDate(event) {
+    this.setState({
+      date: event,
+    });
+  }
   render() {
     const { redirect } = this.state;
     return (
@@ -77,7 +82,7 @@ class AddEvent extends React.Component {
           <br />
           <div>
             Date: &ensp;
-            <DatePicker id="example-datepicker" dateFormat="YYYY-MM-DD" />
+            <DatePicker id="example-datepicker" dateFormat="YYYY-MM-DD" value={this.state.date} onChange={this.changeDate} />
           </div>
           <br />
           <div>
