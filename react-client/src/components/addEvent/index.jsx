@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
+import PastEvents from '../pastEvents/index.jsx';
 
 class AddEvent extends React.Component {
   constructor(props) {
@@ -10,6 +12,7 @@ class AddEvent extends React.Component {
       date: '2018-02-15',
       description: 'just do it',
       email: 'address@domainName.com',
+      redirect: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -39,19 +42,21 @@ class AddEvent extends React.Component {
       },
     })
       .then(() => {
-        // route to '/pastEvents'
+        // trigger redirect to '/pastEvents'
+        this.setState({ redirect: true });
       })
       .catch((error) => {
         console.log(`Error from axios post addEvent: ${error}`);
       });
   }
   handleChange(event) {
-    const name = event.target.name;
+    const { name } = event.target;
     this.setState({
       [name]: event.target.value,
     });
   }
   render() {
+    const { redirect } = this.state;
     return (
       <div className="body">
         <h1>Add an Event</h1>
@@ -76,7 +81,9 @@ class AddEvent extends React.Component {
             <input type="text" onChange={this.handleChange} name="description" />
           </div>
           <br />
-          <button type="submit" onClick={this.handleSubmit}>Submit</button>
+          <button type="submit" onClick={this.handleSubmit}>
+            Submit
+          </button>
         </div>
         <iframe
           title="userCal"
@@ -90,6 +97,9 @@ class AddEvent extends React.Component {
           frameBorder="0"
           scrolling="no"
         />
+        {redirect && (
+          <Redirect to={'/pastEvents'} component={PastEvents} />
+        )}
       </div>
     );
   }

@@ -14,7 +14,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    Axios.get('/getCurrentUser')
+    Axios.get('/api/getCurrentUser')
       .then((response) => {
         this.setState({currentUser: response.data});
       })
