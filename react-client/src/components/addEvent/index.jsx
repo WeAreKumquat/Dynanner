@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import PastEvents from '../pastEvents/index.jsx';
+import DatePicker from "react-bootstrap-date-picker";
 
 class AddEvent extends React.Component {
   constructor(props) {
@@ -76,7 +77,7 @@ class AddEvent extends React.Component {
           <br />
           <div>
             Date: &ensp;
-            <input type="text" onChange={this.handleChange} name="date" ref="date" />
+            <DatePicker id="example-datepicker" dateFormat="YYYY-MM-DD" />
           </div>
           <br />
           <div>
