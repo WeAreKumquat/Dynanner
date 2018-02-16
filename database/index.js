@@ -6,8 +6,8 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 
 const feedbackSchema = mongoose.Schema({
-  pros: String,
-  cons: String,
+  pros: [],
+  cons: [],
   journal: String,
 });
 

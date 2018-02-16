@@ -45,24 +45,38 @@ const updateEvent = async (id, event, callback) => {
         if (event.title) { e.title = event.title; }
         if (event.category) { e.category = event.category; }
         if (event.date) { e.date = event.date; }
-        if (event.feedback) {
-          const newFeedback = new db.Feedback({
-            pros: event.feedback.pros.reduce((allPros, pro) => {
-              allPros += `\n ${pro}`;
-              return allPros;
-            }, ''),
-            cons: event.feedback.cons.reduce((allCons, con) => {
-              allCons += `\n ${con}`;
-              return allCons;
-            }, ''),
-            journal: event.feedback.journal,
-          });
-          e.feedback.push(newFeedback);
-          e.isComplete = true;
-        }
         user.save();
       }
     });
+    callback();
+  });
+};
+
+const addReview = async (id, feedback, event, callback) => {
+  await db.User.findOne({ googleId: id }, async (err, user) => {
+    for (let i = 0; i < user.events.length; i++) {
+      const e = user.events[i];
+      if (e.description === event.description && e.title === event.title) {
+        if (!e.isComplete) {
+          const newFeedback = new db.Feedback({
+            pros: feedback.pros.reduce((allPros, pro) => {
+              allPros.push(pro);
+              return allPros;
+            }, []),
+            cons: feedback.cons.reduce((allCons, con) => {
+              allCons.push(con);
+              return allCons;
+            }, []),
+            journal: feedback.journal,
+          });
+          e.feedback.push(newFeedback);
+          e.isComplete = true;
+          user.save();
+          callback();
+          return;
+        }
+      }
+    }
   });
 };
 
@@ -106,5 +120,6 @@ module.exports.getEvents = getEvents;
 module.exports.addEvent = addEvent;
 module.exports.getEmail = getEmail;
 module.exports.updateEvent = updateEvent;
+module.exports.addReview = addReview;
 module.exports.removeEvent = removeEvent;
 module.exports.fetchUpcomingEvents = fetchUpcomingEvents;

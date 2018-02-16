@@ -33,6 +33,9 @@ class AddEvent extends React.Component {
       .catch((error) => { console.log(`Error trying to get user's email: ${error}`); });
   }
   handleSubmit() {
+    this.refs.title.value = '';
+    this.refs.date.value = '';
+    this.refs.description.value = '';
     axios.post('/api/addEvent', {
       event: {
         category: this.state.category,
@@ -68,17 +71,17 @@ class AddEvent extends React.Component {
           <br />
           <div>
             Title: &ensp;
-            <input type="text" onChange={this.handleChange} name="title" />
+            <input type="text" onChange={this.handleChange} name="title" ref="title" />
           </div>
           <br />
           <div>
             Date: &ensp;
-            <input type="text" onChange={this.handleChange} name="date" />
+            <input type="text" onChange={this.handleChange} name="date" ref="date" />
           </div>
           <br />
           <div>
             Description: &ensp;
-            <input type="text" onChange={this.handleChange} name="description" />
+            <input type="text" onChange={this.handleChange} name="description" ref="description" />
           </div>
           <br />
           <button type="submit" onClick={this.handleSubmit}>
