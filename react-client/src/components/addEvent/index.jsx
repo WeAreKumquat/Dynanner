@@ -33,6 +33,9 @@ class AddEvent extends React.Component {
       .catch((error) => { console.log(`Error trying to get user's email: ${error}`); });
   }
   handleSubmit() {
+    this.refs.title.value = '';
+    this.refs.date.value = '';
+    this.refs.description.value = '';
     axios.post('/api/addEvent', {
       event: {
         category: this.state.category,
@@ -43,9 +46,6 @@ class AddEvent extends React.Component {
     })
       .then(() => {
         // trigger redirect to '/pastEvents'
-        this.refs.title.value = '';
-        this.refs.date.value = '';
-        this.refs.description.value = '';
         this.setState({ redirect: true });
       })
       .catch((error) => {
