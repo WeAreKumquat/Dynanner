@@ -17,7 +17,9 @@ class PastEvents extends React.Component {
   }
 
   componentDidMount() {
-    this.getPastEvents(this.props.location.state.category);
+    const category = this.props.location.state.category;
+    this.getPastEvents(category);
+
     if (this.props.location.state.reviewEvent) {
       const { _id, title } = this.props.location.state.reviewEvent;
       this.setCurrentReview(_id, title);

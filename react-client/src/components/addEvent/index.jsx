@@ -108,7 +108,7 @@ class AddEvent extends React.Component {
           </div>
         </div>
         {redirect && (
-          <Redirect to="/pastEvents" component={PastEvents} />
+          <Redirect to={{ pathname: '/pastEvents', state: { category: this.state.category } }} component={PastEvents} />
         )}
       </div>
     );
