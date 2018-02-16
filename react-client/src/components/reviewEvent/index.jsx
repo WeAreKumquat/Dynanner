@@ -1,17 +1,72 @@
 import React from 'react';
+import axios from 'axios';
 
 class ReviewEvent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      pros: [],
+      proEntry: 'this went well',
+      cons: [],
+      conEntry: 'do not make the same mistake twice',
+      journal: 'a detailed journey inside my emotional experience',
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.addPro = this.addPro.bind(this);
+    this.addCon = this.addCon.bind(this);
+  }
+  handleChange(event) {
+    const name = event.target.name;
+    this.setState({
+      [name]: event.target.value,
+    });
+  }
+  handleSubmit() {
+    axios.post('/api/addReview', {
+      event: this.props.location.state.event,
+      feedback: {
+        pros: this.state.pros,
+        cons: this.state.cons,
+        journal: this.state.journal,
+      },
+    })
+      .then((response) => {
+        console.log(`Successful axios post reviewEvent: ${response}`);
+      })
+      .catch((error) => {
+        console.log(`Error from axios post reviewEvent: ${error}`);
+      });
+  }
+  addPro() {
+    this.setState({
+      pros: this.state.pros.concat(this.state.proEntry),
+    });
+  }
+  addCon() {
+    this.setState({
+      cons: this.state.cons.concat(this.state.conEntry),
+    });
   }
   render() {
     return (
       <div className="body">
-        Review Event
-        {/* review event form inputs */}
+        <h2>Review Your Experience</h2>
+        <div>
+          Things You Did Well: <br />
+          <input type="text" name="proEntry" onChange={this.handleChange} />
+          <button type="submit" onClick={this.addPro}>save this entry</button>
+        </div>
+        <div>
+          Things You Did Poorly<br />
+          <input type="text" name="conEntry" onChange={this.handleChange} />
+          <button type="submit" onClick={this.addCon}>save this entry</button>
+        </div>
+        <div>
+          Further Reflections <br />
+          <textarea type="text" name="journal" onChange={this.handleChange} />
+        </div>
+        <button type="submit" onClick={this.handleSubmit}>Submit</button>
       </div>
     );
   }
