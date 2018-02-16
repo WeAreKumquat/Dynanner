@@ -55,6 +55,7 @@ router.get('/api/upcomingEvents', (req, res) => {
     if (error) {
       console.error(error);
     } else {
+<<<<<<< HEAD
       res.send(events);
     }
   });
@@ -67,22 +68,28 @@ router.get('/api/pastEvents', (req, res) => {
     if (error) {
       console.error(error);
     } else {
+=======
+>>>>>>> c0c804cb9c485496641a8d8db006cb59155c7ecb
       res.send(events);
     }
   });
 });
 
 router.post('/api/addEvent', async (req, res) => {
-  await controller.addEvent(req.user.googleId, req.body.event, (newEvent) => {
-    console.log(newEvent);
-    res.send(newEvent);
+  await controller.addEvent(req.user.googleId, req.body.event, () => {
+    res.send();
   });
 });
 
 router.post('/api/updateEvent', async (req, res) => {
-  await controller.updateEvent(req.user.googleId, req.body.event, (newEvent) => {
-    console.log(newEvent);
-    res.send(newEvent);
+  await controller.updateEvent(req.user.googleId, req.body.event, () => {
+    res.send();
+  });
+});
+
+router.post('/api/addReview', async (req, res) => {
+  await controller.addReview(req.user.googleId, req.body.feedback, req.body.event, () => {
+    res.send();
   });
 });
 

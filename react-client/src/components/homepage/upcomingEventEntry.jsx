@@ -30,7 +30,7 @@ class UpcomingEventEntry extends React.Component {
       <div className="card">
         <div className="card-header" id="headingOne">
           <h5 className="mb-0">
-            <Link to="/reviewEvent">
+            <Link to={{pathname: "/reviewEvent", state: {event: this.props.event}}} >
               <span className="fa fa-check" />
             </Link>
             <button className="btn btn-link collapsed" data-toggle="collapse" data-target={id} aria-expanded="false" aria-controls="collapseOne">
