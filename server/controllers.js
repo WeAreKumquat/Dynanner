@@ -120,7 +120,7 @@ const fetchReview = (currentUserId, eventId, callback) => {
     if (error) {
       callback(error, null);
     } else {
-      const review = user.events.filter(event => event._id === eventId).feedback[0];
+      const review = user.events.id(eventId).feedback[0];
       callback(null, review);
     }
   });
