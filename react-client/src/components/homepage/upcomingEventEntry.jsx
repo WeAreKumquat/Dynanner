@@ -1,14 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Axios from 'axios';
 
 class UpcomingEventEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.deleteEvent = this.deleteEvent.bind(this);
+  }
+
+  deleteEvent() {
+    // send POST to /deleteEvent with current event's id to delete it from database
+    Axios.post('/api/removeEvent', {
+      eventId: this.props.event._id,
+    })
+      .then((response) => {
+        console.log('your event was deleted!', response);
+      })
+      .catch((error) => {
+        console.error('error deleting event!', error);
+      });
   }
 
   render() {
-    const { _id, title, description } = this.props.event;
+    const { title, description } = this.props.event;
     const id = `#${title}`;
 
     return (
@@ -21,7 +36,7 @@ class UpcomingEventEntry extends React.Component {
             <button className="btn btn-link collapsed" data-toggle="collapse" data-target={id} aria-expanded="false" aria-controls="collapseOne">
               {title}
             </button>
-            <a href="/">
+            <a href="/" onClick={this.deleteEvent}>
               <span className="fa fa-trash-alt" />
             </a>
           </h5>

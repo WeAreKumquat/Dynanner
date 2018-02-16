@@ -80,9 +80,39 @@ const addReview = async (id, feedback, event, callback) => {
   });
 };
 
+const removeEvent = (currentUserId, eventId) => {
+  db.User.findOne({ googleId: currentUserId }, (error, user) => {
+    if (error) {
+      throw error;
+    } else {
+      user.events.id(eventId).remove();
+      user.save((err) => {
+        if (err) {
+          throw err;
+        } else {
+          console.log('event removed!');
+        }
+      });
+    }
+  });
+};
+
 const getEmail = async (id, callback) => {
   await db.User.findOne({ googleId: id }, async (err, user) => {
     callback(user.email);
+  });
+};
+
+const fetchUpcomingEvents = (currentUserId, callback) => {
+  // find user model that matches current user's google ID
+  db.User.findOne({ googleId: currentUserId }, (error, user) => {
+    if (error) {
+      callback(error, null);
+    } else {
+      // go into their events sub-collection and find all events where isComplete: false
+      const events = user.events.filter(event => event.isComplete === false);
+      callback(null, events);
+    }
   });
 };
 
@@ -91,3 +121,5 @@ module.exports.addEvent = addEvent;
 module.exports.getEmail = getEmail;
 module.exports.updateEvent = updateEvent;
 module.exports.addReview = addReview;
+module.exports.removeEvent = removeEvent;
+module.exports.fetchUpcomingEvents = fetchUpcomingEvents;
