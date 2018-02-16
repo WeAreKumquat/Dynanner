@@ -116,6 +116,38 @@ const fetchUpcomingEvents = (currentUserId, callback) => {
   });
 };
 
+const fetchPastEvents = (currentUserId, category, callback) => {
+  // find user model that matches current user's google ID
+  db.User.findOne({ googleId: currentUserId }, (error, user) => {
+    if (error) {
+      callback(error, null);
+    } else {
+      // go into their events sub-collection and find all events where isComplete: true
+      // if there is a category, account for that
+      // otherwise, just fetch all events
+      let events;
+      if (category) {
+        events = user.events.filter(event => ((event.isComplete === true) && (event.category === category)));
+        callback(null, events);
+      } else {
+        events = user.events.filter(event => event.isComplete === true);
+        callback(null, events);
+      }
+    }
+  });
+};
+
+const fetchReview = (currentUserId, eventId, callback) => {
+  db.User.findOne({ googleId: currentUserId }, (error, user) => {
+    if (error) {
+      callback(error, null);
+    } else {
+      const review = user.events.id(eventId).feedback[0];
+      callback(null, review);
+    }
+  });
+};
+
 module.exports.getEvents = getEvents;
 module.exports.addEvent = addEvent;
 module.exports.getEmail = getEmail;
@@ -123,3 +155,5 @@ module.exports.updateEvent = updateEvent;
 module.exports.addReview = addReview;
 module.exports.removeEvent = removeEvent;
 module.exports.fetchUpcomingEvents = fetchUpcomingEvents;
+module.exports.fetchPastEvents = fetchPastEvents;
+module.exports.fetchReview = fetchReview;

@@ -2,7 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 import { Route, Link } from 'react-router-dom';
 import UpcomingEvents from './upcomingEvents.jsx';
-import PastEvents from './pastEvents.jsx';
+import PastEventsHome from './pastEvents.jsx';
 import AddEvent from '../addEvent/index.jsx';
 
 class Home extends React.Component {
@@ -22,6 +22,7 @@ class Home extends React.Component {
         console.error('error getting current user', error);
       });
   }
+
   render() {
     const { currentUser } = this.state;
     return (
@@ -36,7 +37,7 @@ class Home extends React.Component {
               <UpcomingEvents />
             </div>
             <div className="col-lg-4">
-              <PastEvents />
+              <PastEventsHome />
             </div>
           </div>
         </div>

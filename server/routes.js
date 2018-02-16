@@ -60,6 +60,19 @@ router.get('/api/upcomingEvents', (req, res) => {
   });
 });
 
+router.get('/api/pastEvents', (req, res) => {
+  const currentUserId = req.user.googleId;
+  const category = req.query.category ? req.query.category : null;
+  // const currentUserId = req.query.googleId; // for testing in Postman
+  controller.fetchPastEvents(currentUserId, category, (error, events) => {
+    if (error) {
+      console.error(error);
+    } else {
+      res.send(events);
+    }
+  });
+});
+
 router.post('/api/addEvent', async (req, res) => {
   await controller.addEvent(req.user.googleId, req.body.event, () => {
     res.send();
@@ -72,12 +85,6 @@ router.post('/api/updateEvent', async (req, res) => {
   });
 });
 
-router.post('/api/addReview', async (req, res) => {
-  await controller.addReview(req.user.googleId, req.body.feedback, req.body.event, () => {
-    res.send();
-  });
-});
-
 router.post('/api/removeEvent', (req, res) => {
   const currentUserId = req.user.googleId;
   const { eventId } = req.body;
@@ -85,10 +92,31 @@ router.post('/api/removeEvent', (req, res) => {
   res.end();
 });
 
+router.post('/api/addReview', async (req, res) => {
+  await controller.addReview(req.user.googleId, req.body.feedback, req.body.event, () => {
+    res.send();
+  });
+});
+
+router.get('/api/getReview', (req, res) => {
+  const currentUserId = req.user.googleId;
+  // const currentUserId = req.query.googleId; // for testing in Postman
+  const { eventId } = req.query;
+
+  controller.fetchReview(currentUserId, eventId, (error, review) => {
+    if (error) {
+      console.error(error);
+    } else {
+      res.send(review);
+    }
+  });
+});
+
 router.get('/api/getEmail', async (req, res) => {
   await controller.getEmail(req.user.googleId, (email) => {
     res.send(email);
   });
 });
+
 
 module.exports = router;
