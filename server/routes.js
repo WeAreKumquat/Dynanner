@@ -99,4 +99,17 @@ router.get('/api/getEmail', async (req, res) => {
   });
 });
 
+router.get('/api/getReview', (req, res) => {
+  const currentUserId = req.user.googleId;
+  const { eventId } = req.query;
+
+  controller.fetchReview(currentUserId, eventId, (error, review) => {
+    if (error) {
+      console.error(error);
+    } else {
+      res.send(review);
+    }
+  });
+});
+
 module.exports = router;

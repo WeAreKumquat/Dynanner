@@ -6,10 +6,27 @@ import EventsList from './eventsList.jsx';
 class PastEvents extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      currentReview: '',
+    };
+    this.setCurrentReview = this.setCurrentReview.bind(this);
+  }
+
+  setCurrentReview(eventId) {
+    Axios.get('/api/getReview', {
+      params: { eventId },
+    })
+      .then((response) => {
+        this.setState({ currentReview: response.data });
+      })
+      .catch((error) => {
+        console.error('error getting review', error);
+      });
   }
 
   render() {
+    const { currentReview } = this.state;
+
     return (
       <div className="body">
         <h3>Past Events</h3>
@@ -17,7 +34,7 @@ class PastEvents extends React.Component {
           <div className="row">
             <div className="col-lg-8">
               {/* currently selected event */}
-              <EventReview />
+              <EventReview currentReview={currentReview} />
             </div>
             <div className="col-lg-4">
               {/* work/play drop-down */}

@@ -115,6 +115,17 @@ const fetchPastEvents = (currentUserId, callback) => {
   });
 };
 
+const fetchReview = (currentUserId, eventId, callback) => {
+  db.User.findOne({ googleId: currentUserId }, (error, user) => {
+    if (error) {
+      callback(error, null);
+    } else {
+      const review = user.events.filter(event => event._id === eventId).feedback[0];
+      callback(null, review);
+    }
+  });
+};
+
 module.exports.getEvents = getEvents;
 module.exports.addEvent = addEvent;
 module.exports.getEmail = getEmail;
@@ -122,3 +133,4 @@ module.exports.updateEvent = updateEvent;
 module.exports.removeEvent = removeEvent;
 module.exports.fetchUpcomingEvents = fetchUpcomingEvents;
 module.exports.fetchPastEvents = fetchPastEvents;
+module.exports.fetchReview = fetchReview;
