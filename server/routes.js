@@ -55,7 +55,18 @@ router.get('/api/upcomingEvents', (req, res) => {
     if (error) {
       console.error(error);
     } else {
-      console.log(events);
+      res.send(events);
+    }
+  });
+});
+
+router.get('/api/pastEvents', (req, res) => {
+  const currentUserId = req.user.googleId;
+  // const currentUserId = req.query.googleId; // for testing in Postman
+  controller.fetchPastEvents(currentUserId, (error, events) => {
+    if (error) {
+      console.error(error);
+    } else {
       res.send(events);
     }
   });
