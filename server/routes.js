@@ -55,7 +55,6 @@ router.get('/api/upcomingEvents', (req, res) => {
     if (error) {
       console.error(error);
     } else {
-<<<<<<< HEAD
       res.send(events);
     }
   });
@@ -68,8 +67,6 @@ router.get('/api/pastEvents', (req, res) => {
     if (error) {
       console.error(error);
     } else {
-=======
->>>>>>> c0c804cb9c485496641a8d8db006cb59155c7ecb
       res.send(events);
     }
   });
@@ -87,12 +84,6 @@ router.post('/api/updateEvent', async (req, res) => {
   });
 });
 
-router.post('/api/addReview', async (req, res) => {
-  await controller.addReview(req.user.googleId, req.body.feedback, req.body.event, () => {
-    res.send();
-  });
-});
-
 router.post('/api/removeEvent', (req, res) => {
   const currentUserId = req.user.googleId;
   const { eventId } = req.body;
@@ -100,9 +91,9 @@ router.post('/api/removeEvent', (req, res) => {
   res.end();
 });
 
-router.get('/api/getEmail', async (req, res) => {
-  await controller.getEmail(req.user.googleId, (email) => {
-    res.send(email);
+router.post('/api/addReview', async (req, res) => {
+  await controller.addReview(req.user.googleId, req.body.feedback, req.body.event, () => {
+    res.send();
   });
 });
 
@@ -119,5 +110,12 @@ router.get('/api/getReview', (req, res) => {
     }
   });
 });
+
+router.get('/api/getEmail', async (req, res) => {
+  await controller.getEmail(req.user.googleId, (email) => {
+    res.send(email);
+  });
+});
+
 
 module.exports = router;
