@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 class ReviewEvent extends React.Component {
@@ -10,6 +11,7 @@ class ReviewEvent extends React.Component {
       cons: [],
       conEntry: 'do not make the same mistake twice',
       journal: 'a detailed journey inside my emotional experience',
+      redirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,6 +36,7 @@ class ReviewEvent extends React.Component {
       .then((response) => {
         console.log(`Successful axios post reviewEvent: ${response}`);
         this.refs.journal.value = '';
+        this.setState({ redirect: true });
       })
       .catch((error) => {
         console.log(`Error from axios post reviewEvent: ${error}`);
@@ -70,6 +73,9 @@ class ReviewEvent extends React.Component {
           <textarea type="text" name="journal" onChange={this.handleChange} ref="journal" />
         </div>
         <button type="submit" onClick={this.handleSubmit}>Submit</button>
+        {this.state.redirect && (
+          <Redirect to="/" />
+        )}
       </div>
     );
   }
