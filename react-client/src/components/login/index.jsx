@@ -12,7 +12,7 @@ class Login extends React.Component {
         <h1>Dynanner</h1>
         {/* Google auth login */}
         <a href="/auth/google" className="btn btn-outline-secondary">
-          <span className="fa fa-google-plus" />  Log In
+          <span className="fab fa-google-plus-g" />  Log In
         </a>
       </div>
     );

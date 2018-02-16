@@ -5,3 +5,19 @@
 .body {
   padding: 30px;
 }
+
+.contents {
+  padding: 20px;
+}
+
+#add-event-button {
+  align-self: center;
+}
+
+.upcoming-events {
+  padding-top: 20px;
+}
+
+.card-header {
+  background-color: white;
+}

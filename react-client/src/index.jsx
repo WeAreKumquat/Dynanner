@@ -5,10 +5,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Login from './components/login/index.jsx';
 import Header from './header.jsx';
-// import Home from './components/homepage/index.jsx';
-// import AddEvent from './components/addEvent/index.jsx';
-// import PastEvents from './components/pastEvents/index.jsx';
-// import ReviewEvent from './components/reviewEvent/index.jsx';
 
 class App extends React.Component {
   constructor(props) {

@@ -27,8 +27,8 @@ class UpcomingEvents extends React.Component {
 
   render() {
     return (
-      <div>
-        Upcoming Events
+      <div id="upcoming-events accordion">
+        <h4>Upcoming Events</h4>
         {this.state.events.map((event, i) => (
           <UpcomingEventEntry event={event} key={i} />
         ))}
