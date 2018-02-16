@@ -54,6 +54,7 @@ passport.use('google', new GoogleStrategy({
         await controller.addEvent(profile.id, {
           title: event.summary,
           description: event.description,
+          date: event.start.dateTime,
         }, (newEvent) => {
           console.log(newEvent);
         });
