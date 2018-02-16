@@ -33,20 +33,23 @@ class ReviewEvent extends React.Component {
     })
       .then((response) => {
         console.log(`Successful axios post reviewEvent: ${response}`);
+        this.refs.journal.value = '';
       })
       .catch((error) => {
         console.log(`Error from axios post reviewEvent: ${error}`);
       });
   }
-  addPro() {
+  addPro(event) {
     this.setState({
       pros: this.state.pros.concat(this.state.proEntry),
     });
+    this.refs.pro.value = '';
   }
   addCon() {
     this.setState({
       cons: this.state.cons.concat(this.state.conEntry),
     });
+    this.refs.con.value = '';
   }
   render() {
     return (
@@ -54,17 +57,17 @@ class ReviewEvent extends React.Component {
         <h2>Review Your Experience</h2>
         <div>
           Things You Did Well: <br />
-          <input type="text" name="proEntry" onChange={this.handleChange} />
+          <input type="text" name="proEntry" onChange={this.handleChange} ref="pro" />
           <button type="submit" onClick={this.addPro}>save this entry</button>
         </div>
         <div>
           Things You Did Poorly<br />
-          <input type="text" name="conEntry" onChange={this.handleChange} />
+          <input type="text" name="conEntry" onChange={this.handleChange} ref="con" />
           <button type="submit" onClick={this.addCon}>save this entry</button>
         </div>
         <div>
           Further Reflections <br />
-          <textarea type="text" name="journal" onChange={this.handleChange} />
+          <textarea type="text" name="journal" onChange={this.handleChange} ref="journal" />
         </div>
         <button type="submit" onClick={this.handleSubmit}>Submit</button>
       </div>
