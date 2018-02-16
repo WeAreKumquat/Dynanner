@@ -20,7 +20,7 @@ class PastEventsHome extends React.Component {
   getPastEvents() {
     Axios.get('/api/pastEvents')
       .then((response) => {
-        this.setState({ events: response.data });
+        this.setState({ events: response.data.slice(-5) });
       })
       .catch((error) => {
         console.error('past event error', error);
