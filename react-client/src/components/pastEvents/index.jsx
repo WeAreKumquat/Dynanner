@@ -9,8 +9,10 @@ class PastEvents extends React.Component {
     this.state = {
       currentReview: '',
       currentReviewTitle: '',
+      category: 'play',
     };
     this.setCurrentReview = this.setCurrentReview.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   setCurrentReview(eventId, title) {
@@ -28,8 +30,14 @@ class PastEvents extends React.Component {
       });
   }
 
+  handleChange(event) {
+    this.setState({ category: event.target.value });
+    console.log('event target value', event.target.value);
+    console.log('!!!!!', this.state.category);
+  }
+
   render() {
-    const { currentReview, currentReviewTitle } = this.state;
+    const { currentReview, currentReviewTitle, category } = this.state;
 
     return (
       <div className="body">
@@ -42,8 +50,12 @@ class PastEvents extends React.Component {
             </div>
             <div className="col-lg-4">
               {/* work/play drop-down */}
+              <select value={this.state.category} onChange={this.handleChange}>
+                <option value="work">Work</option>
+                <option value="play">Play</option>
+              </select>
               {/* list of past events */}
-              <EventsList setCurrentReview={this.setCurrentReview} />
+              <EventsList setCurrentReview={this.setCurrentReview} categorySelected={category} />
             </div>
           </div>
         </div>

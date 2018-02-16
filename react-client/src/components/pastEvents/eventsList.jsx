@@ -7,6 +7,7 @@ class EventsList extends React.Component {
     super(props);
     this.state = {
       events: [],
+      category: this.props.categorySelected,
     };
     this.getPastEvents = this.getPastEvents.bind(this);
   }
@@ -15,14 +16,34 @@ class EventsList extends React.Component {
     this.getPastEvents();
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ category: nextProps.categorySelected });
+    this.getPastEvents();
+  }
+
   getPastEvents() {
-    Axios.get('/api/pastEvents')
+    console.log('getting past events');
+    const { category } = this.state;
+
+    Axios.get('/api/pastEvents', {
+      params: { category },
+    })
       .then((response) => {
+        console.log(response.data);
         this.setState({ events: response.data });
       })
       .catch((error) => {
         console.error('past event error', error);
       });
+
+    // Axios.get('/api/pastEvents')
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     this.setState({ events: response.data });
+    //   })
+    //   .catch((error) => {
+    //     console.error('past event error', error);
+    //   });
   }
 
   render() {

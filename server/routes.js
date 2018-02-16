@@ -62,8 +62,9 @@ router.get('/api/upcomingEvents', (req, res) => {
 
 router.get('/api/pastEvents', (req, res) => {
   const currentUserId = req.user.googleId;
+  const category = req.query.category ? req.query.category : null;
   // const currentUserId = req.query.googleId; // for testing in Postman
-  controller.fetchPastEvents(currentUserId, (error, events) => {
+  controller.fetchPastEvents(currentUserId, category, (error, events) => {
     if (error) {
       console.error(error);
     } else {
