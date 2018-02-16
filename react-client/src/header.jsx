@@ -28,10 +28,10 @@ class Header extends React.Component {
         </nav>
         <div>
           <Switch>
+            <Route exact path="/" component={Home} />
             <Route path="/addEvent" component={AddEvent} />
             <Route path="/pastEvents" component={PastEvents} />
             <Route path="/reviewEvent" component={ReviewEvent} />
-            <Route exact path="/" component={Home} />
           </Switch>
         </div>
       </div>
