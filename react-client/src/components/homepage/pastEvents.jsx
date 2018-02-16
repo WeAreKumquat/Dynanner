@@ -20,7 +20,7 @@ class PastEventsHome extends React.Component {
   getPastEvents() {
     Axios.get('/api/pastEvents')
       .then((response) => {
-        this.setState({ events: response.data });
+        this.setState({ events: response.data.slice(-5) });
       })
       .catch((error) => {
         console.error('past event error', error);
@@ -31,7 +31,25 @@ class PastEventsHome extends React.Component {
     return (
       <div>
         <h4>Your Past Logs</h4>
-        <Link to="/pastEvents">Work/Play</Link>
+        <Link
+          className="btn btn-outline-info"
+          to={{
+          pathname: '/pastEvents',
+          state: { category: 'work' },
+          }}
+        >
+          <span className="fa fa-briefcase" />  Work
+        </Link>
+        <br />
+        <Link
+          className="btn btn-outline-info"
+          to={{
+          pathname: '/pastEvents',
+          state: { category: 'play' },
+          }}
+        >
+          <span className="fa fa-paper-plane" />  Play
+        </Link>
         <h5>Most Recent</h5>
         {this.state.events.map((event, i) => (
           <PastEventEntry event={event} key={i} />

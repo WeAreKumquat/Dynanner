@@ -7,12 +7,38 @@ class PastEvents extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      events: [],
       currentReview: '',
       currentReviewTitle: '',
-      category: 'play',
     };
+    this.getPastEvents = this.getPastEvents.bind(this);
     this.setCurrentReview = this.setCurrentReview.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    const category = this.props.location.state.category;
+    this.getPastEvents(category);
+
+    if (this.props.location.state.reviewEvent) {
+      const { _id, title } = this.props.location.state.reviewEvent;
+      this.setCurrentReview(_id, title);
+    }
+  }
+
+  getPastEvents(category) {
+    console.log('getting past events');
+
+    Axios.get('/api/pastEvents', {
+      params: { category },
+    })
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ events: response.data });
+      })
+      .catch((error) => {
+        console.error('past event error', error);
+      });
   }
 
   setCurrentReview(eventId, title) {
@@ -31,13 +57,12 @@ class PastEvents extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({ category: event.target.value });
-    console.log('event target value', event.target.value);
-    console.log('!!!!!', this.state.category);
+    const category = event.target.value;
+    this.getPastEvents(category);
   }
 
   render() {
-    const { currentReview, currentReviewTitle, category } = this.state;
+    const { events, currentReview, currentReviewTitle, category } = this.state;
 
     return (
       <div className="body">
@@ -55,7 +80,7 @@ class PastEvents extends React.Component {
                 <option value="play">Play</option>
               </select>
               {/* list of past events */}
-              <EventsList setCurrentReview={this.setCurrentReview} categorySelected={category} />
+              <EventsList events={events} setCurrentReview={this.setCurrentReview} categorySelected={category} />
             </div>
           </div>
         </div>
