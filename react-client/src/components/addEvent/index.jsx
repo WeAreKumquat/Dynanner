@@ -8,7 +8,7 @@ class AddEvent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: 'play',
+      category: 'work',
       title: 'event',
       date: '2018-04-15',
       description: 'just do it',
@@ -70,7 +70,7 @@ class AddEvent extends React.Component {
       <div className="body">
         <h1>Add an Event</h1>
         <div>
-          <select name="category" onChange={this.handleChange}>
+          <select name="category" onChange={this.handleChange} value={this.state.category} >
             <option value="work">work</option>
             <option value="play">play</option>
           </select>
@@ -82,7 +82,10 @@ class AddEvent extends React.Component {
           <br />
           <div>
             Date: &ensp;
-            <DatePicker id="example-datepicker" dateFormat="YYYY-MM-DD" value={this.state.date} onChange={this.changeDate} />
+            <DatePicker id="example-datepicker" dateFormat="YYYY-MM-DD" value={this.state.date} onChange={this.changeDate}
+              minDate="2018-02-16T12:00:00.000Z"
+              maxDate="2118-01-01T12:00:00.000Z"
+            />
           </div>
           <br />
           <div>
