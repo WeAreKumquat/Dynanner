@@ -35,23 +35,27 @@ class AddEvent extends React.Component {
       .catch((error) => { console.log(`Error trying to get user's email: ${error}`); });
   }
   handleSubmit() {
-    this.refs.title.value = '';
-    this.refs.description.value = '';
-    axios.post('/api/addEvent', {
-      event: {
-        category: this.state.category,
-        title: this.state.title,
-        date: this.state.date,
-        description: this.state.description,
-      },
-    })
-      .then(() => {
-        // trigger redirect to '/pastEvents'
-        this.setState({ redirect: true });
+    if (this.state.date) {
+      this.refs.title.value = '';
+      this.refs.description.value = '';
+      axios.post('/api/addEvent', {
+        event: {
+          category: this.state.category,
+          title: this.state.title,
+          date: this.state.date,
+          description: this.state.description,
+        },
       })
-      .catch((error) => {
-        console.log(`Error from axios post addEvent: ${error}`);
-      });
+        .then(() => {
+          // trigger redirect to '/pastEvents'
+          this.setState({ redirect: true });
+        })
+        .catch((error) => {
+          console.log(`Error from axios post addEvent: ${error}`);
+        });
+    } else {
+      alert('Date needs to be between 2018 and 2118. Please select a valid date and re-submit the event.');
+    }
   }
   handleChange(event) {
     const { name } = event.target;
