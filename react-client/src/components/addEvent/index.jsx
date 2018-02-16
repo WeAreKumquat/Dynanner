@@ -26,7 +26,7 @@ class AddEvent extends React.Component {
   getEmail() {
     axios.get('/api/getEmail')
       .then((email) => {
-        const emailUserCal = email.replace('@', '%40');
+        const emailUserCal = email.data.replace('@', '%40');
         this.setState({
           email: emailUserCal
         });
