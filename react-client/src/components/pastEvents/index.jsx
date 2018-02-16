@@ -18,6 +18,7 @@ class PastEvents extends React.Component {
     })
       .then((response) => {
         this.setState({ currentReview: response.data });
+        console.log(response.data);
       })
       .catch((error) => {
         console.error('error getting review', error);
@@ -39,7 +40,7 @@ class PastEvents extends React.Component {
             <div className="col-lg-4">
               {/* work/play drop-down */}
               {/* list of past events */}
-              <EventsList />
+              <EventsList setCurrentReview={this.setCurrentReview} />
             </div>
           </div>
         </div>

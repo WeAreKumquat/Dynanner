@@ -27,13 +27,16 @@ class EventsList extends React.Component {
 
   render() {
     const { events } = this.state;
+    const { setCurrentReview } = this.props;
 
     return (
       <div>
         <h4>Your Past Events</h4>
-        {events.map((event, i) => (
-          <EventListEntry event={event} key={i} />
-        ))}
+        <ul className="list-group">
+          {events.map((event, i) => (
+            <EventListEntry event={event} key={i} setCurrentReview={setCurrentReview} />
+          ))}
+        </ul>
       </div>
     );
   }
