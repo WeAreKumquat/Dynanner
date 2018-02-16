@@ -54,28 +54,25 @@ const updateEvent = async (id, event, callback) => {
 
 const addReview = async (id, feedback, event, callback) => {
   await db.User.findOne({ googleId: id }, async (err, user) => {
-    for (let i = 0; i < user.events.length; i++) {
-      const e = user.events[i];
-      if (e.description === event.description && e.title === event.title) {
-        if (!e.isComplete) {
-          const newFeedback = new db.Feedback({
-            pros: feedback.pros.reduce((allPros, pro) => {
-              allPros.push(pro);
-              return allPros;
-            }, []),
-            cons: feedback.cons.reduce((allCons, con) => {
-              allCons.push(con);
-              return allCons;
-            }, []),
-            journal: feedback.journal,
-          });
-          e.feedback.push(newFeedback);
-          e.isComplete = true;
-          user.save();
-          callback();
-          return;
-        }
-      }
+    if (err) {
+      callback(err);
+    } else {
+      const reviewedEvent = user.events.id(event._id);
+      const newFeedback = new db.Feedback({
+        pros: feedback.pros.reduce((allPros, pro) => {
+          allPros.push(pro);
+          return allPros;
+        }, []),
+        cons: feedback.cons.reduce((allCons, con) => {
+          allCons.push(con);
+          return allCons;
+        }, []),
+        journal: feedback.journal,
+      });
+      reviewedEvent.feedback.push(newFeedback);
+      reviewedEvent.isComplete = true;
+      user.save();
+      callback(null);
     }
   });
 };
