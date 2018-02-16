@@ -56,23 +56,26 @@ router.get('/api/upcomingEvents', (req, res) => {
     if (error) {
       console.error(error);
     } else {
-      console.log(events);
       res.send(events);
     }
   });
 });
 
 router.post('/api/addEvent', async (req, res) => {
-  await controller.addEvent(req.user.googleId, req.body.event, (newEvent) => {
-    console.log(newEvent);
-    res.send(newEvent);
+  await controller.addEvent(req.user.googleId, req.body.event, () => {
+    res.send();
   });
 });
 
 router.post('/api/updateEvent', async (req, res) => {
-  await controller.updateEvent(req.user.googleId, req.body.event, (newEvent) => {
-    console.log(newEvent);
-    res.send(newEvent);
+  await controller.updateEvent(req.user.googleId, req.body.event, () => {
+    res.send();
+  });
+});
+
+router.post('/api/addReview', async (req, res) => {
+  await controller.addReview(req.user.googleId, req.body.feedback, req.body.event, () => {
+    res.send();
   });
 });
 
