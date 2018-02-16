@@ -21,7 +21,7 @@ class App extends React.Component {
 
   getAuth() {
     // send GET to server to check if there is an authenticated user
-    Axios.get('/isAuthenticated')
+    Axios.get('/api/isAuthenticated')
       .then((response) => {
         this.setState({ isAuthenticated: response.data });
       })

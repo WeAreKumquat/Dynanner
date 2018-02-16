@@ -2,7 +2,6 @@ const router = require('express').Router();
 const passport = require('passport');
 const path = require('path');
 const controller = require('./controllers');
-const db = require('../database/helpers');
 
 router.get(
   '/auth/google',
@@ -34,25 +33,25 @@ router.get(
 //   });
 // });
 
-router.get('/isAuthenticated', (req, res) => {
-  const isLoggedIn = !!req.user;
-
-  res.send(isLoggedIn);
-});
-
-router.get('/getCurrentUser', (req, res) => {
-  res.send(req.user.firstName);
-});
-
 router.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });
 
+router.get('/api/isAuthenticated', (req, res) => {
+  const isLoggedIn = !!req.user;
+
+  res.send(isLoggedIn);
+});
+
+router.get('/api/getCurrentUser', (req, res) => {
+  res.send(req.user.firstName);
+});
+
 router.get('/api/upcomingEvents', (req, res) => {
   const currentUserId = req.user.googleId;
   // const currentUserId = req.query.googleId; // for testing in Postman
-  db.fetchUpcomingEvents(currentUserId, (error, events) => {
+  controller.fetchUpcomingEvents(currentUserId, (error, events) => {
     if (error) {
       console.error(error);
     } else {
@@ -74,6 +73,13 @@ router.post('/api/updateEvent', async (req, res) => {
     console.log(newEvent);
     res.send(newEvent);
   });
+});
+
+router.post('/api/removeEvent', (req, res) => {
+  const currentUserId = req.user.googleId;
+  const { eventId } = req.body;
+  controller.removeEvent(currentUserId, eventId);
+  res.end();
 });
 
 router.get('/api/getEmail', async (req, res) => {
