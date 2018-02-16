@@ -7,7 +7,10 @@ const PastEventEntry = ({ event }) => {
 
   return (
     <div>
-      <Link to="/pastEvents">
+      <Link to={{
+        pathname: "/pastEvents",
+        state: { reviewEvent: event },
+      }}>
         {title}
       </Link>
     </div>

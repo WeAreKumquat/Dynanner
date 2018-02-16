@@ -18,6 +18,10 @@ class PastEvents extends React.Component {
 
   componentDidMount() {
     this.getPastEvents(this.props.location.state.category);
+    if (this.props.location.state.reviewEvent) {
+      const { _id, title } = this.props.location.state.reviewEvent;
+      this.setCurrentReview(_id, title);
+    }
   }
 
   getPastEvents(category) {
@@ -53,8 +57,6 @@ class PastEvents extends React.Component {
   handleChange(event) {
     const category = event.target.value;
     this.getPastEvents(category);
-    console.log('event target value', event.target.value);
-    console.log('!!!!!', this.state.category);
   }
 
   render() {
