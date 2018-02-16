@@ -27,11 +27,19 @@ class Home extends React.Component {
     return (
       <div className="body">
         <h3>Welcome back, {currentUser}!</h3>
-        <Link to="/addEvent" className="btn btn-outline-secondary">
-          <span className="fa fa-plus" />  Add New Event
-        </Link>
-        <UpcomingEvents />
-        <PastEvents />
+        <div className="container-fluid contents">
+          <div className="row">
+            <div className="col-lg-8">
+              <Link to="/addEvent" className="btn btn-outline-secondary" id="add-event-button">
+                <span className="fa fa-plus" />  Add New Event
+              </Link>
+              <UpcomingEvents />
+            </div>
+            <div className="col-lg-4">
+              <PastEvents />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
