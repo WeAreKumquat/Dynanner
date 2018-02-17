@@ -125,6 +125,7 @@ const addReview = async (id, feedback, event, callback) => {
         journal: feedback.journal,
       });
       reviewedEvent.feedback.push(newFeedback);
+      reviewedEvent.category = event.category;
       reviewedEvent.isComplete = true;
       user.save();
       callback(null);
