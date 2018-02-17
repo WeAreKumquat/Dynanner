@@ -1,12 +1,10 @@
-import 'react-datepicker/dist/react-datepicker.css';
-
 import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import PastEvents from '../pastEvents/index.jsx';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
-
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import PastEvents from '../pastEvents/index.jsx';
 
 class AddEvent extends React.Component {
   constructor(props) {
@@ -28,6 +26,7 @@ class AddEvent extends React.Component {
   componentDidMount() {
     this.getEmail();
   }
+
   getEmail() {
     axios.get('/api/getEmail')
       .then((email) => {
@@ -37,38 +36,39 @@ class AddEvent extends React.Component {
       })
       .catch((error) => { console.log(`Error trying to get user's email: ${error}`); });
   }
+
   handleSubmit() {
-    if (this.state.date) {
-      this.refs.title.value = '';
-      this.refs.description.value = '';
-      axios.post('/api/addEvent', {
-        event: {
-          category: this.state.category,
-          title: this.state.title,
-          date: this.state.date,
-          description: this.state.description,
-        },
+    this.refs.title.value = '';
+    this.refs.description.value = '';
+
+    axios.post('/api/addEvent', {
+      event: {
+        category: this.state.category,
+        title: this.state.title,
+        date: this.state.date.toISOString(),
+        description: this.state.description,
+      },
+    })
+      .then(() => {
+        // trigger redirect to '/pastEvents'
+        this.setState({ redirect: true });
       })
-        .then(() => {
-          // trigger redirect to '/pastEvents'
-          this.setState({ redirect: true });
-        })
-        .catch((error) => {
-          console.log(`Error from axios post addEvent: ${error}`);
-        });
-    } else {
-      alert('Date needs to be between 2018 and 2118. Please select a valid date and re-submit the event.');
-    }
+      .catch((error) => {
+        console.log(`Error from axios post addEvent: ${error}`);
+      });
   }
+
   handleChange(event) {
     const { name } = event.target;
     this.setState({
       [name]: event.target.value,
     });
   }
+
   changeDate(date) {
-    this.setState({ date });
+    this.setState({ date: date });
   }
+
   render() {
     const { redirect, calSrc } = this.state;
     return (
@@ -89,7 +89,14 @@ class AddEvent extends React.Component {
               <br />
               <div>
                 Date: &ensp;
-                <DatePicker selected={this.state.date} onChange={this.changeDate} />
+                <DatePicker 
+                  selected={this.state.date}
+                  onChange={this.changeDate}
+                  placeholderText="Click to select date."
+                  minDate={moment()}
+                  maxDate={moment().add(100, 'years')}
+                  isClearable={true}
+                />
               </div>
               <br />
               <div>
