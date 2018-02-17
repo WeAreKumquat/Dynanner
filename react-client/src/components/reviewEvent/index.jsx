@@ -70,8 +70,9 @@ class ReviewEvent extends React.Component {
   }
   render() {
     return (
-      <div className="body reviewEvent">
-        <div className="form reviewForm col-5">
+      <div className="body reviewEvent row justify-content-around">
+        
+        <div className="form reviewForm col-4">
           <h2 className="reviewFormHeading">{this.props.location.state.event.title}</h2>
         
           <div className="form-group">
@@ -157,11 +158,11 @@ class ReviewEvent extends React.Component {
           <button className="btn btn-primary" type="submit" onClick={this.handleSubmit}>Submit</button>
       
         </div>
-
-        {/* <div>
-          <img src="http://www.empireambition.com/2016/04/i-markets-live-final-review.html" className="img-fluid" alt="Responsive" />
-        </div> */}
-
+        
+        <div className="col-4">
+          <img src="/assets/reviewCat.png" className="img-fluid align-self-center" alt="Responsive" />
+        </div>
+        
         {this.state.redirect && (
           <Redirect to="/" />
         )}
