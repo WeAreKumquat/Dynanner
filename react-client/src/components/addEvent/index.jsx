@@ -45,7 +45,7 @@ class AddEvent extends React.Component {
       event: {
         category: this.state.category,
         title: this.state.title,
-        date: this.state.date.toISOString(),
+        date: this.state.date.toISOString(true),
         description: this.state.description,
       },
     })
@@ -66,7 +66,7 @@ class AddEvent extends React.Component {
   }
 
   changeDate(date) {
-    this.setState({ date: date });
+    this.setState({ date });
   }
 
   render() {
