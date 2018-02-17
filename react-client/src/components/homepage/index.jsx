@@ -34,9 +34,13 @@ class Home extends React.Component {
               <Link to="/addEvent" className="btn btn-outline-info btn-lg" id="add-event-button">
                 <span className="fa fa-plus" />  Add New Event
               </Link>
+            </div>
+          </div>
+          <div className="row row-eq-height">
+            <div className="col-lg-8">
               <UpcomingEvents />
             </div>
-            <div className="col-lg-4">
+            <div className="col-lg-4"  id="past-logs-home">
               <PastEventsHome />
             </div>
           </div>

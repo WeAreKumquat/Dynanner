@@ -1,3 +1,12 @@
+body {
+  background-image: url(assets/wormz.png);
+}
+
+a:link {
+  text-decoration: none;
+  color: black;
+}
+
 #login-heading {
   font-family: Oleo Script Swash Caps;
 }
@@ -18,12 +27,25 @@
   align-self: center;
 }
 
-.upcoming-events {
+#upcoming-events {
   padding-top: 20px;
+  background-color: white;
+  opacity: 0.8;
 }
 
-.card-header {
-  background-color: white;
+.upcoming-event-entry {
+  background-color: none!important;
+  border-left: none;
+  border-top: none;
+  border-right: none;
+}
+
+.card .card-header{
+  background-color: transparent!important;
+}
+
+#past-logs-home {
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .reviewEvent {

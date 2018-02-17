@@ -29,7 +29,7 @@ class UpcomingEventEntry extends React.Component {
     const id = `#${title}`;
 
     return (
-      <div className="card">
+      <div className="card upcoming-event-entry">
         <div className="card-header" id="headingOne">
           <h5 className="mb-0">
             <Link to={{pathname: "/reviewEvent", state: {event: this.props.event}}} >
