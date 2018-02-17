@@ -6,7 +6,7 @@ class ReviewEvent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: this.props.location.state.category || 'play',
+      category: this.props.location.state.event.category || 'play',
       pros: [],
       proEntry: 'this went well',
       cons: [],
