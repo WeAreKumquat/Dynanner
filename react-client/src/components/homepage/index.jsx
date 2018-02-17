@@ -31,7 +31,7 @@ class Home extends React.Component {
         <div className="container-fluid contents">
           <div className="row">
             <div className="col-lg-8">
-              <Link to="/addEvent" className="btn btn-outline-secondary" id="add-event-button">
+              <Link to="/addEvent" className="btn btn-outline-info btn-lg" id="add-event-button">
                 <span className="fa fa-plus" />  Add New Event
               </Link>
               <UpcomingEvents />

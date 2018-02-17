@@ -95,7 +95,10 @@ router.post('/api/removeEvent', (req, res) => {
 });
 
 router.post('/api/addReview', async (req, res) => {
-  await controller.addReview(req.user.googleId, req.body.feedback, req.body.event, () => {
+  await controller.addReview(req.user.googleId, req.body.feedback, req.body.event, (err) => {
+    if (err) {
+      console.error(err);
+    }
     res.send();
   });
 });

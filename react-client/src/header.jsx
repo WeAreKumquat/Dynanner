@@ -20,7 +20,7 @@ class Header extends React.Component {
               <a href="/"><h1 id="heading">Dynanner</h1></a>
             </div>
             <p className="navbar-text navbar-right">
-              <a href="/logout" className="btn btn-outline-secondary">
+              <a href="/logout" className="btn btn-outline-info">
                 <span className="fa fa-sign-out-alt" />  Log Out
               </a>
             </p>
