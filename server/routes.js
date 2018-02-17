@@ -3,6 +3,7 @@ const passport = require('passport');
 const path = require('path');
 const moment = require('moment');
 const controller = require('./controllers');
+const db = require('../database/index');
 
 router.get(
   '/auth/google',
@@ -16,9 +17,16 @@ router.get(
 router.get(
   '/auth/google/callback',
   passport.authenticate('google', {
-    successRedirect: '/',
+    // successRedirect: '/',
     failureRedirect: '/',
   }),
+  async (req, res) => {
+    await db.User.findOne({ googleId: req.user.googleId }, (err, user) => {
+      user.accessCode = req.query.code;
+      user.save();
+    });
+    res.redirect('/');
+  },
 );
 
 // allows user to refresh page but gets rid of React component functionality?
@@ -101,9 +109,10 @@ router.post('/api/addEvent', async (req, res) => {
 });
 
 router.post('/api/addEventToGoogleCal', async (req, res) => {
-  await controller.addEventToGoogleCal(req.user.token, req.body.event, () => {
-    res.send();
+  await db.User.findOne({ googleId: req.user.googleId }, async (err, user) => {
+    await controller.addEventToGoogleCal(user.refreshToken, req.body.event, user.authCode, () => {});
   });
+  res.send();
 });
 
 router.post('/api/updateEvent', async (req, res) => {
