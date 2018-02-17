@@ -25,6 +25,8 @@ const eventSchema = mongoose.Schema({
 
 const userSchema = mongoose.Schema({
   googleId: { type: String, required: true, unique: true },
+  refreshToken: String,
+  authCode: String,
   email: { type: String, required: true, unique: true },
   name: String,
   firstName: String,
