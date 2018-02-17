@@ -25,3 +25,25 @@
 .card-header {
   background-color: white;
 }
+
+.reviewEvent {
+  
+}
+
+.deleteProsCons {
+  margin: 15px;
+}
+
+.reviewForm {
+  
+}
+
+.journalBox {
+  height: 15em;
+  width: 100%;
+}
+
+.reviewFormHeading {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: rgb(165, 185, 216);
+}

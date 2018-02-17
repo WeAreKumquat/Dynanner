@@ -17,6 +17,8 @@ class ReviewEvent extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addPro = this.addPro.bind(this);
     this.addCon = this.addCon.bind(this);
+    this.deletePro = this.deletePro.bind(this);
+    this.deleteCon = this.deleteCon.bind(this);
   }
   handleChange(event) {
     const name = event.target.name;
@@ -42,7 +44,7 @@ class ReviewEvent extends React.Component {
         console.log(`Error from axios post reviewEvent: ${error}`);
       });
   }
-  addPro(event) {
+  addPro() {
     this.setState({
       pros: this.state.pros.concat(this.state.proEntry),
     });
@@ -54,25 +56,104 @@ class ReviewEvent extends React.Component {
     });
     this.refs.con.value = '';
   }
+  deletePro(event) {
+    this.setState({
+      pros: this.state.pros.filter(pro => pro !== event.target.value),
+    });
+  }
+  deleteCon(event) {
+    this.setState({
+      cons: this.state.cons.filter(con => con !== event.target.value),
+    });
+  }
   render() {
     return (
-      <div className="body">
-        <h2>Review Your Experience</h2>
-        <div>
-          Things You Did Well: <br />
-          <input type="text" name="proEntry" onChange={this.handleChange} ref="pro" />
-          <button type="submit" onClick={this.addPro}>save this entry</button>
+      <div className="body reviewEvent">
+        <div className="form reviewForm col-5">
+          <h2 className="reviewFormHeading">{this.props.location.state.event.title}</h2>
+        
+          <div className="form-group">
+
+            Things You Did Well: <br />
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                className="form-control"
+                aria-label="Text input with segmented dropdown button"
+                name="proEntry"
+                onChange={this.handleChange}
+                ref="pro"
+              />
+              <div class="input-group-prepend">
+                <button className="btn btn-secondary" type="submit" onClick={this.addPro}>save this entry</button>
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <span class="sr-only">Pros</span>
+                </button>
+                <div className="dropdown-menu">
+                  {this.state.pros.map((pro, i, pros) => (
+                    <div className= "dropdown-item" key={i}>
+                      {pro}
+                      <button className="btn-outline-secondary deleteProsCons" type="submit" value={pros[i]} onClick={this.deletePro}>delete</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="form-group">
+            Things You Did Poorly<br />
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                className="form-control"
+                aria-label="Text input with segmented dropdown button"
+                name="conEntry"
+                onChange={this.handleChange}
+                ref="con"
+              />
+              <div class="input-group-prepend">
+                <button className="btn btn-secondary" type="submit" onClick={this.addCon}>save this entry</button>
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <span class="sr-only">Cons</span>
+                </button>
+                <div className="dropdown-menu">
+                  {this.state.cons.map((con, i, cons) => (
+                    <div className="dropdown-item" key={i}>
+                      {con}
+                      <button className="btn-outline-secondary deleteProsCons" type="submit" value={cons[i]} onClick={this.deleteCon}>delete</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="form-group">
+            Further Reflections <br />
+            <textarea className="journalBox" type="text" name="journal" onChange={this.handleChange} ref="journal" />
+          </div>
+   
+          <button className="btn btn-primary" type="submit" onClick={this.handleSubmit}>Submit</button>
+      
         </div>
-        <div>
-          Things You Did Poorly<br />
-          <input type="text" name="conEntry" onChange={this.handleChange} ref="con" />
-          <button type="submit" onClick={this.addCon}>save this entry</button>
-        </div>
-        <div>
-          Further Reflections <br />
-          <textarea type="text" name="journal" onChange={this.handleChange} ref="journal" />
-        </div>
-        <button type="submit" onClick={this.handleSubmit}>Submit</button>
+
+        {/* <div>
+          <img src="http://www.empireambition.com/2016/04/i-markets-live-final-review.html" className="img-fluid" alt="Responsive" />
+        </div> */}
+
         {this.state.redirect && (
           <Redirect to="/" />
         )}
