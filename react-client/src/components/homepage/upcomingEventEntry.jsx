@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
+import moment from 'moment';
 
 class UpcomingEventEntry extends React.Component {
   constructor(props) {
@@ -23,7 +24,8 @@ class UpcomingEventEntry extends React.Component {
   }
 
   render() {
-    const { title, description } = this.props.event;
+    const { title, description, date } = this.props.event;
+    const displayDate = moment.unix(+date);
     const id = `#${title}`;
 
     return (
@@ -40,6 +42,7 @@ class UpcomingEventEntry extends React.Component {
               <span className="fa fa-trash-alt" />
             </a>
           </h5>
+          {moment(date).isValid() ? <small>{moment(date).calendar()}</small> : <small>{date}</small>}
         </div>
 
         <div id={title} className="collapse" aria-labelledby="headingOne" data-parent="#accordion">

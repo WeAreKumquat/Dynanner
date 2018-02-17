@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const passport = require('passport');
 const path = require('path');
+const moment = require('moment');
 const controller = require('./controllers');
 
 router.get(
@@ -29,6 +30,18 @@ router.get(
 //   });
 // });
 
+router.get('/addEvent', (req, res) => {
+  res.redirect('/');
+});
+
+router.get('/pastEvents', (req, res) => {
+  res.redirect('/');
+});
+
+router.get('/reviewEvent', (req, res) => {
+  res.redirect('/');
+});
+
 router.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
@@ -51,7 +64,13 @@ router.get('/api/upcomingEvents', (req, res) => {
     if (error) {
       console.error(error);
     } else {
-      res.send(events);
+      const chronological = events.sort((a, b) => {
+        const dateA = moment(a.date).unix();
+        const dateB = moment(b.date).unix();
+
+        return dateA - dateB;
+      });
+      res.send(chronological);
     }
   });
 });
@@ -64,7 +83,13 @@ router.get('/api/pastEvents', (req, res) => {
     if (error) {
       console.error(error);
     } else {
-      res.send(events);
+      const chronological = events.sort((a, b) => {
+        const dateA = moment(a.date).unix();
+        const dateB = moment(b.date).unix();
+
+        return dateA - dateB;
+      });
+      res.send(chronological);
     }
   });
 });
