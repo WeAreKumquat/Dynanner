@@ -152,7 +152,7 @@ class ReviewEvent extends React.Component {
           
           <div className="form-group">
             Further Reflections <br />
-            <textarea className="journalBox" type="text" name="journal" onChange={this.handleChange} ref="journal" />
+            <textarea className="journalBox form-control" type="text" name="journal" onChange={this.handleChange} ref="journal" />
           </div>
    
           <button className="btn btn-primary" type="submit" onClick={this.handleSubmit}>Submit</button>
