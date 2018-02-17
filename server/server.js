@@ -31,8 +31,10 @@ passport.use('google', new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: '/auth/google/callback',
-  passReqToCallback: true,
-}, async (request, accessToken, refreshToken, profile, done) => {
+  scope: ['https://www.googleapis.com/auth/plus.login',
+    'https://www.googleapis.com/auth/plus.profile.emails.read',
+    'https://www.googleapis.com/auth/calendar'],
+}, async (accessToken, refreshToken, params, profile, done) => {
   try {
     // check whether current user exists in db
     const existingUser = await db.User.findOne({ googleId: profile.id });
@@ -40,12 +42,18 @@ passport.use('google', new GoogleStrategy({
     // create new user if current user is not in db
     if (!existingUser) {
       newUser = new db.User({
+        token: refreshToken,
         googleId: profile.id,
         email: profile.emails[0].value,
         name: profile.displayName,
         firstName: profile.name.givenName,
       });
       await newUser.save();
+    } else {
+      await db.User.findOne({ googleId: profile.id }, (err, user) => {
+        user.token = refreshToken;
+        user.save();
+      });
     }
     // get events from google calendar
     await controller.getEvents(accessToken, (events) => {
@@ -55,9 +63,7 @@ passport.use('google', new GoogleStrategy({
           title: event.summary,
           description: event.description,
           date: event.start.dateTime,
-        }, (newEvent) => {
-          console.log(newEvent);
-        });
+        }, () => {});
       });
     });
     if (existingUser) {

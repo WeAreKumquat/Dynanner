@@ -50,6 +50,16 @@ class AddEvent extends React.Component {
       },
     })
       .then(() => {
+        axios.post('/api/addEventToGoogleCal', {
+          event: {
+            category: this.state.category,
+            title: this.state.title,
+            date: this.state.date,
+            description: this.state.description,
+          },
+        });
+      })
+      .then(() => {
         // trigger redirect to '/pastEvents'
         this.setState({ redirect: true });
       })
