@@ -96,6 +96,11 @@ class AddEvent extends React.Component {
                   minDate={moment()}
                   maxDate={moment().add(100, 'years')}
                   isClearable={true}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={15}
+                  dateFormat="LLL"
+                  timeCaption="time"
                 />
               </div>
               <br />
