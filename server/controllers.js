@@ -16,6 +16,8 @@ const refreshToken = async (token, callback) => {
         client_secret: process.env.GOOGLE_CLIENT_SECRET,
         refresh_token: token,
         grant_type: 'refresh_token',
+        // redirect_uri: 'http://localhost:3000/auth/google/callback',
+        redirect_uri: '/auth/google/callback',
       },
     json: true,
   };
@@ -41,8 +43,8 @@ const getEvents = async (token, callback) => {
 };
 
 
-const addEventToGoogleCal = async (token, event, callback) => {
-  await refreshToken(token, (accessToken) => {
+const addEventToGoogleCal = async (refreshtoken, event, authCode, callback) => {
+  await refreshToken(refreshtoken, (accessToken) => {
     const options = {
       method: 'POST',
       url: 'https://www.googleapis.com/calendar/v3/calendars/primary/events',
