@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import PastEvents from '../pastEvents/index.jsx';
 
 class AddEvent extends React.Component {
