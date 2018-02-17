@@ -57,25 +57,27 @@ class ReviewEvent extends React.Component {
   render() {
     return (
       <div className="body">
-        <h2>Review Your Experience</h2>
-        <div>
-          Things You Did Well: <br />
-          <input type="text" name="proEntry" onChange={this.handleChange} ref="pro" />
-          <button type="submit" onClick={this.addPro}>save this entry</button>
+        <div className="form">
+          <h2>{this.props.location.state.event.title}</h2>
+          <div className="form-group">
+            Things You Did Well: <br />
+            <input type="text" name="proEntry" onChange={this.handleChange} ref="pro" />
+            <button type="submit" onClick={this.addPro}>save this entry</button>
+          </div>
+          <div className="form-group">
+            Things You Did Poorly<br />
+            <input type="text" name="conEntry" onChange={this.handleChange} ref="con" />
+            <button type="submit" onClick={this.addCon}>save this entry</button>
+          </div>
+          <div className="form-group">
+            Further Reflections <br />
+            <textarea type="text" name="journal" onChange={this.handleChange} ref="journal" />
+          </div>
+          <button type="submit" onClick={this.handleSubmit}>Submit</button>
+          {this.state.redirect && (
+            <Redirect to="/" />
+          )}
         </div>
-        <div>
-          Things You Did Poorly<br />
-          <input type="text" name="conEntry" onChange={this.handleChange} ref="con" />
-          <button type="submit" onClick={this.addCon}>save this entry</button>
-        </div>
-        <div>
-          Further Reflections <br />
-          <textarea type="text" name="journal" onChange={this.handleChange} ref="journal" />
-        </div>
-        <button type="submit" onClick={this.handleSubmit}>Submit</button>
-        {this.state.redirect && (
-          <Redirect to="/" />
-        )}
       </div>
     );
   }
