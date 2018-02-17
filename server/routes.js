@@ -16,9 +16,16 @@ router.get(
 router.get(
   '/auth/google/callback',
   passport.authenticate('google', {
-    successRedirect: '/',
+    // successRedirect: '/',
     failureRedirect: '/',
   }),
+  async (req, res) => {
+    await db.User.findOne({ googleId: req.user.googleId }, (err, user) => {
+      user.accessCode = req.query.code;
+      user.save();
+    });
+    res.redirect('/');
+  },
 );
 
 // allows user to refresh page but gets rid of React component functionality?
