@@ -27,17 +27,21 @@ class Home extends React.Component {
     const { currentUser } = this.state;
     return (
       <div className="body">
-        <h3>Welcome back, {currentUser}!</h3>
-        <div className="container-fluid contents">
+        <h3 id="welcome">Welcome back, {currentUser}!</h3>
+        <div className="container-fluid">
           <div className="row">
             <div className="col-lg-8">
-              <Link to="/addEvent" className="btn btn-outline-info btn-lg" id="add-event-button">
-                <span className="fa fa-plus" />  Add New Event
-              </Link>
+              <div className="row justify-content-center">
+                <div className="col-lg-4 align-self-center">
+                  <Link to="/addEvent" className="btn btn-outline-info btn-lg btn-block" id="add-event-button">
+                    <span className="fa fa-plus" />  Add New Event
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="row row-eq-height">
-            <div className="col-lg-8">
+          <div className="row row-eq-height justify-content-between">
+            <div id="upcoming-col" className="col-lg-8">
               <UpcomingEvents />
             </div>
             <div className="col-lg-4"  id="past-logs-home">

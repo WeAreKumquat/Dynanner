@@ -19,18 +19,20 @@ a:link {
   padding: 30px;
 }
 
-.contents {
-  padding: 20px;
+h1, h2, h3, h4, h5, h6 {
+  font-family: Quicksand;
+  font-weight: 500;
 }
 
-#add-event-button {
-  align-self: center;
+#upcoming-col {
+  padding-left: 0px;
 }
 
 #upcoming-events {
-  padding-top: 20px;
   background-color: white;
+  margin-top: 15px;
   opacity: 0.8;
+  padding: 20px 15px 15px 15px;
 }
 
 .upcoming-event-entry {
@@ -46,6 +48,8 @@ a:link {
 
 #past-logs-home {
   background-color: rgba(255, 255, 255, 0.8);
+  margin-top: 15px;
+  padding: 20px;
 }
 
 .reviewEvent {
