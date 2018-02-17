@@ -6,13 +6,9 @@ const controller = require('./controllers');
 router.get(
   '/auth/google',
   passport.authenticate('google', {
-    scope:
-      ['https://www.googleapis.com/auth/plus.login',
-        'https://www.googleapis.com/auth/plus.profile.emails.read',
-        'https://www.googleapis.com/auth/calendar'],
-    prompt: 'consent',
-    successRedirect: '/',
-    failureRedirect: '/',
+    session: false,
+    accessType: 'offline',
+    approvalPrompt: 'force',
   }),
 );
 
@@ -75,6 +71,12 @@ router.get('/api/pastEvents', (req, res) => {
 
 router.post('/api/addEvent', async (req, res) => {
   await controller.addEvent(req.user.googleId, req.body.event, () => {
+    res.send();
+  });
+});
+
+router.post('/api/addEventToGoogleCal', async (req, res) => {
+  await controller.addEventToGoogleCal(req.user.token, req.body.event, () => {
     res.send();
   });
 });
