@@ -68,12 +68,13 @@ class ReviewEvent extends React.Component {
   }
   render() {
     return (
-      <div className="body">
-        <div className="form">
-          <h2>{this.props.location.state.event.title}</h2>
+      <div className="body reviewEvent">
+        <div className="form reviewForm col-5">
+          <h2 className="reviewFormHeading">{this.props.location.state.event.title}</h2>
+          
           <div className="form-group">
+          
             Things You Did Well: <br />
-  
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <button className="btn btn-secondary" type="submit" onClick={this.addPro}>save this entry</button>
@@ -105,11 +106,9 @@ class ReviewEvent extends React.Component {
               />
             </div>
 
-            
           </div>
           <div className="form-group">
             Things You Did Poorly<br />
-
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <button className="btn btn-secondary" type="submit" onClick={this.addCon}>save this entry</button>
@@ -142,14 +141,18 @@ class ReviewEvent extends React.Component {
             </div>
           
           </div>
+          
           <div className="form-group">
             Further Reflections <br />
-            <textarea type="text" name="journal" onChange={this.handleChange} ref="journal" />
+            <textarea className="col-7" type="text" name="journal" onChange={this.handleChange} ref="journal" />
           </div>
+
           <button className="btn btn-primary" type="submit" onClick={this.handleSubmit}>Submit</button>
+          
           {this.state.redirect && (
             <Redirect to="/" />
           )}
+        
         </div>
       </div>
     );
