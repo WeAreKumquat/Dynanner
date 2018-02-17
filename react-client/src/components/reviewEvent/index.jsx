@@ -6,6 +6,7 @@ class ReviewEvent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      category: this.props.location.state.event.category || 'play',
       pros: [],
       proEntry: 'this went well',
       cons: [],
@@ -27,6 +28,7 @@ class ReviewEvent extends React.Component {
     });
   }
   handleSubmit() {
+    this.props.location.state.event.category = this.state.category;
     axios.post('/api/addReview', {
       event: this.props.location.state.event,
       feedback: {
@@ -68,14 +70,21 @@ class ReviewEvent extends React.Component {
   }
   render() {
     return (
-      <div className="body reviewEvent">
-        <div className="form reviewForm col-5">
+      <div className="body reviewEvent row justify-content-around">
+        
+        <div className="form reviewForm col-4">
           <h2 className="reviewFormHeading">{this.props.location.state.event.title}</h2>
         
           <div className="form-group">
+            <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category" onChange={this.handleChange} value={this.state.category}>
+              <option value="work">work</option>
+              <option value="play">play</option>
+            </select>
+          </div>
 
+          <div className="form-group">
             Things You Did Well: <br />
-            <div class="input-group mb-3">
+            <div className="input-group mb-3">
               <input
                 type="text"
                 className="form-control"
@@ -84,7 +93,7 @@ class ReviewEvent extends React.Component {
                 onChange={this.handleChange}
                 ref="pro"
               />
-              <div class="input-group-prepend">
+              <div className="input-group-prepend">
                 <button className="btn btn-secondary" type="submit" onClick={this.addPro}>save this entry</button>
                 <button
                   type="button"
@@ -93,7 +102,7 @@ class ReviewEvent extends React.Component {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <span class="sr-only">Pros</span>
+                  <span className="sr-only">Pros</span>
                 </button>
                 <div className="dropdown-menu">
                   {this.state.pros.map((pro, i, pros) => (
@@ -109,7 +118,7 @@ class ReviewEvent extends React.Component {
 
           <div className="form-group">
             Things You Did Poorly<br />
-            <div class="input-group mb-3">
+            <div className="input-group mb-3">
               <input
                 type="text"
                 className="form-control"
@@ -118,7 +127,7 @@ class ReviewEvent extends React.Component {
                 onChange={this.handleChange}
                 ref="con"
               />
-              <div class="input-group-prepend">
+              <div className="input-group-prepend">
                 <button className="btn btn-secondary" type="submit" onClick={this.addCon}>save this entry</button>
                 <button
                   type="button"
@@ -127,7 +136,7 @@ class ReviewEvent extends React.Component {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <span class="sr-only">Cons</span>
+                  <span className="sr-only">Cons</span>
                 </button>
                 <div className="dropdown-menu">
                   {this.state.cons.map((con, i, cons) => (
@@ -149,11 +158,11 @@ class ReviewEvent extends React.Component {
           <button className="btn btn-primary" type="submit" onClick={this.handleSubmit}>Submit</button>
       
         </div>
-
-        {/* <div>
-          <img src="http://www.empireambition.com/2016/04/i-markets-live-final-review.html" className="img-fluid" alt="Responsive" />
-        </div> */}
-
+        
+        <div className="col-4">
+          <img src="/assets/reviewCat.png" className="img-fluid align-self-center" alt="Responsive" />
+        </div>
+        
         {this.state.redirect && (
           <Redirect to="/" />
         )}
