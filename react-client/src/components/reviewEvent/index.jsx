@@ -62,18 +62,18 @@ class ReviewEvent extends React.Component {
           <div className="form-group">
             Things You Did Well: <br />
             <input type="text" name="proEntry" onChange={this.handleChange} ref="pro" />
-            <button type="submit" onClick={this.addPro}>save this entry</button>
+            <button className="btn btn-secondary" type="submit" onClick={this.addPro}>save this entry</button>
           </div>
           <div className="form-group">
             Things You Did Poorly<br />
             <input type="text" name="conEntry" onChange={this.handleChange} ref="con" />
-            <button type="submit" onClick={this.addCon}>save this entry</button>
+            <button className="btn btn-secondary" type="submit" onClick={this.addCon}>save this entry</button>
           </div>
           <div className="form-group">
             Further Reflections <br />
             <textarea type="text" name="journal" onChange={this.handleChange} ref="journal" />
           </div>
-          <button type="submit" onClick={this.handleSubmit}>Submit</button>
+          <button className="btn btn-primary" type="submit" onClick={this.handleSubmit}>Submit</button>
           {this.state.redirect && (
             <Redirect to="/" />
           )}
