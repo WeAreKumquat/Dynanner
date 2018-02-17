@@ -1,8 +1,12 @@
+import 'react-datepicker/dist/react-datepicker.css';
+
 import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import PastEvents from '../pastEvents/index.jsx';
-import DatePicker from 'react-bootstrap-date-picker';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
 
 class AddEvent extends React.Component {
   constructor(props) {
@@ -10,7 +14,7 @@ class AddEvent extends React.Component {
     this.state = {
       category: 'work',
       title: 'event',
-      date: '2018-04-15',
+      // date: {},
       description: 'just do it',
       calSrc: '',
       redirect: false,
@@ -62,10 +66,8 @@ class AddEvent extends React.Component {
       [name]: event.target.value,
     });
   }
-  changeDate(event) {
-    this.setState({
-      date: event,
-    });
+  changeDate(date) {
+    this.setState({ date });
   }
   render() {
     const { redirect, calSrc } = this.state;
@@ -87,10 +89,7 @@ class AddEvent extends React.Component {
               <br />
               <div>
                 Date: &ensp;
-                <DatePicker id="example-datepicker" dateFormat="YYYY-MM-DD" value={this.state.date} onChange={this.changeDate}
-                  minDate="2018-02-16T12:00:00.000Z"
-                  maxDate="2118-01-01T12:00:00.000Z"
-                />
+                <DatePicker selected={this.state.date} onChange={this.changeDate} />
               </div>
               <br />
               <div>
