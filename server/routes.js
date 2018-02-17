@@ -33,6 +33,18 @@ router.get(
 //   });
 // });
 
+router.get('/addEvent', (req, res) => {
+  res.redirect('/');
+});
+
+router.get('/pastEvents', (req, res) => {
+  res.redirect('/');
+});
+
+router.get('/reviewEvent', (req, res) => {
+  res.redirect('/');
+});
+
 router.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
