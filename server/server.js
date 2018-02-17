@@ -34,7 +34,7 @@ passport.use('google', new GoogleStrategy({
   scope: ['https://www.googleapis.com/auth/plus.login',
     'https://www.googleapis.com/auth/plus.profile.emails.read',
     'https://www.googleapis.com/auth/calendar'],
-}, async (accessToken, refreshToken, params, profile, done) => {
+}, async (accessToken, refreshtoken, params, profile, done) => {
   try {
     // check whether current user exists in db
     const existingUser = await db.User.findOne({ googleId: profile.id });
@@ -42,7 +42,7 @@ passport.use('google', new GoogleStrategy({
     // create new user if current user is not in db
     if (!existingUser) {
       newUser = new db.User({
-        token: refreshToken,
+        refreshToken: refreshtoken,
         googleId: profile.id,
         email: profile.emails[0].value,
         name: profile.displayName,
@@ -51,7 +51,7 @@ passport.use('google', new GoogleStrategy({
       await newUser.save();
     } else {
       await db.User.findOne({ googleId: profile.id }, (err, user) => {
-        user.token = refreshToken;
+        user.token = refreshtoken;
         user.save();
       });
     }
