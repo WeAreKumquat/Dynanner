@@ -71,11 +71,19 @@ class ReviewEvent extends React.Component {
       <div className="body reviewEvent">
         <div className="form reviewForm col-5">
           <h2 className="reviewFormHeading">{this.props.location.state.event.title}</h2>
-          
+        
           <div className="form-group">
-          
+
             Things You Did Well: <br />
             <div class="input-group mb-3">
+              <input
+                type="text"
+                className="form-control"
+                aria-label="Text input with segmented dropdown button"
+                name="proEntry"
+                onChange={this.handleChange}
+                ref="pro"
+              />
               <div class="input-group-prepend">
                 <button className="btn btn-secondary" type="submit" onClick={this.addPro}>save this entry</button>
                 <button
@@ -96,20 +104,20 @@ class ReviewEvent extends React.Component {
                   ))}
                 </div>
               </div>
-              <input
-                type="text"
-                className="form-control col-4"
-                aria-label="Text input with segmented dropdown button"
-                name="proEntry"
-                onChange={this.handleChange}
-                ref="pro"
-              />
             </div>
-
           </div>
+
           <div className="form-group">
             Things You Did Poorly<br />
             <div class="input-group mb-3">
+              <input
+                type="text"
+                className="form-control"
+                aria-label="Text input with segmented dropdown button"
+                name="conEntry"
+                onChange={this.handleChange}
+                ref="con"
+              />
               <div class="input-group-prepend">
                 <button className="btn btn-secondary" type="submit" onClick={this.addCon}>save this entry</button>
                 <button
@@ -130,30 +138,25 @@ class ReviewEvent extends React.Component {
                   ))}
                 </div>
               </div>
-              <input
-                type="text"
-                className="form-control col-4"
-                aria-label="Text input with segmented dropdown button"
-                name="conEntry"
-                onChange={this.handleChange}
-                ref="con"
-              />
             </div>
-          
           </div>
           
           <div className="form-group">
             Further Reflections <br />
-            <textarea className="col-7" type="text" name="journal" onChange={this.handleChange} ref="journal" />
+            <textarea className="journalBox" type="text" name="journal" onChange={this.handleChange} ref="journal" />
           </div>
-
+   
           <button className="btn btn-primary" type="submit" onClick={this.handleSubmit}>Submit</button>
-          
-          {this.state.redirect && (
-            <Redirect to="/" />
-          )}
-        
+      
         </div>
+
+        {/* <div>
+          <img src="http://www.empireambition.com/2016/04/i-markets-live-final-review.html" className="img-fluid" alt="Responsive" />
+        </div> */}
+
+        {this.state.redirect && (
+          <Redirect to="/" />
+        )}
       </div>
     );
   }
