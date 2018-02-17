@@ -7,6 +7,16 @@ a:link {
   color: black;
 }
 
+.fa {
+  margin-right: .3em;
+}
+
+.btn-outline-info {
+  background-color: rgba(255, 255, 255, 0.6);  
+  font-family: Quicksand;
+  font-weight: 700;
+}
+
 #login-heading {
   font-family: Oleo Script Swash Caps;
 }
@@ -42,14 +52,26 @@ h1, h2, h3, h4, h5, h6 {
   border-right: none;
 }
 
-.card .card-header{
+.card .card-header {
   background-color: transparent!important;
+}
+
+.date-row {
+  margin-bottom: 5px;
+}
+
+.trashcan {
+  margin-top: 6px;
 }
 
 #past-logs-home {
   background-color: rgba(255, 255, 255, 0.8);
   margin-top: 15px;
   padding: 20px;
+}
+
+.work-play-button {
+  margin-bottom: 15px;
 }
 
 .reviewEvent {

@@ -32,23 +32,23 @@ class PastEventsHome extends React.Component {
       <div>
         <h4>Your Past Logs</h4>
         <Link
-          className="btn btn-outline-info"
+          className="btn btn-outline-info work-play-button"
           to={{
           pathname: '/pastEvents',
           state: { category: 'work' },
           }}
         >
-          <span className="fa fa-briefcase" />  Work
+          <span className="fa fa-briefcase" /> Work
         </Link>
         <br />
         <Link
-          className="btn btn-outline-info"
+          className="btn btn-outline-info work-play-button"
           to={{
           pathname: '/pastEvents',
           state: { category: 'play' },
           }}
         >
-          <span className="fa fa-paper-plane" />  Play
+          <span className="fa fa-paper-plane" /> Play
         </Link>
         <h5>Most Recent</h5>
         {this.state.events.map((event, i) => (

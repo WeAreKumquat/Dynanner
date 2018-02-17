@@ -31,18 +31,24 @@ class UpcomingEventEntry extends React.Component {
     return (
       <div className="card upcoming-event-entry">
         <div className="card-header" id="headingOne">
-          <h5 className="mb-0">
-            <Link to={{pathname: "/reviewEvent", state: {event: this.props.event}}} >
-              <span className="fa fa-check" />
-            </Link>
-            <button className="btn btn-link collapsed" data-toggle="collapse" data-target={id} aria-expanded="false" aria-controls="collapseOne">
-              {title}
-            </button>
-            <a href="/" onClick={this.deleteEvent}>
-              <span className="fa fa-trash-alt" />
-            </a>
-          </h5>
-          {moment(date).isValid() ? <small>{moment(date).calendar()}</small> : <small>{date}</small>}
+          <div className="row justify-content-end date-row">
+            {moment(date).isValid() ? <small className="upcoming-date">{moment(date).format('dddd, MMMM Do')}</small> : <small className="upcoming-date">{date}</small>}
+          </div>
+          <div className="row justify-content-between">
+            <h5 className="mb-0">
+              <Link to={{pathname: "/reviewEvent", state: {event: this.props.event}}} >
+                <span className="fa fa-check" />
+              </Link>
+              <button className="btn btn-link collapsed" data-toggle="collapse" data-target={id} aria-expanded="false" aria-controls="collapseOne">
+                {title}
+              </button>
+            </h5>
+            <h5 className="mb-0 trashcan">
+              <a href="/" onClick={this.deleteEvent}>
+                <span className="fa fa-trash-alt" />
+              </a>
+            </h5>
+          </div>
         </div>
 
         <div id={title} className="collapse" aria-labelledby="headingOne" data-parent="#accordion">

@@ -34,7 +34,7 @@ class Home extends React.Component {
               <div className="row justify-content-center">
                 <div className="col-lg-4 align-self-center">
                   <Link to="/addEvent" className="btn btn-outline-info btn-lg btn-block" id="add-event-button">
-                    <span className="fa fa-plus" />  Add New Event
+                    <span className="fa fa-plus" /> Add New Event
                   </Link>
                 </div>
               </div>
