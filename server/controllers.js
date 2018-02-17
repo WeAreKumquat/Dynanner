@@ -1,5 +1,30 @@
 const request = require('request');
 const db = require('../database/index');
+const dotenv = require('dotenv').config();
+
+const refreshToken = async (token, callback) => {
+  const options = {
+    method: 'POST',
+    url: 'https://www.googleapis.com/oauth2/v4/token',
+    headers:
+      {
+        'Content-Type': 'application/json',
+      },
+    body:
+      {
+        client_id: process.env.GOOGLE_CLIENT_ID,
+        client_secret: process.env.GOOGLE_CLIENT_SECRET,
+        refresh_token: token,
+        grant_type: 'refresh_token',
+      },
+    json: true,
+  };
+  request(options, (error, response, body) => {
+    if (error) { console.log(error); }
+    console.log(body);
+    callback(body.access_token);
+  });
+};
 
 const getEvents = async (token, callback) => {
   const options = {
@@ -12,6 +37,34 @@ const getEvents = async (token, callback) => {
   await request(options, (error, response, body) => {
     if (error) { console.log(`Error regarding GET request to google-calendar API: ${error}`); }
     callback(body);
+  });
+};
+
+
+const addEventToGoogleCal = async (token, event, callback) => {
+  await refreshToken(token, (accessToken) => {
+    const options = {
+      method: 'POST',
+      url: 'https://www.googleapis.com/calendar/v3/calendars/primary/events',
+      headers:
+        {
+          Authorization: accessToken,
+          'Content-Type': 'application/json',
+        },
+      body:
+        {
+          summary: event.title,
+          description: event.description,
+          start: { dateTime: event.date, timeZone: 'America/Chicago' },
+          end: { dateTime: event.date, timeZone: 'America/Chicago' },
+        },
+      json: true,
+    };
+    request(options, (error, response, body) => {
+      if (error) throw new Error(error);
+      console.log(`response body from refreshToken-googleCal: ${JSON.stringify(body)}`);
+      callback();
+    });
   });
 };
 
@@ -157,3 +210,5 @@ module.exports.removeEvent = removeEvent;
 module.exports.fetchUpcomingEvents = fetchUpcomingEvents;
 module.exports.fetchPastEvents = fetchPastEvents;
 module.exports.fetchReview = fetchReview;
+module.exports.refreshToken = refreshToken;
+module.exports.addEventToGoogleCal = addEventToGoogleCal;
