@@ -22,7 +22,7 @@ class ReviewEvent extends React.Component {
     this.deleteCon = this.deleteCon.bind(this);
   }
   handleChange(event) {
-    const name = event.target.name;
+    const { name } = event.target;
     this.setState({
       [name]: event.target.value,
     });
@@ -71,10 +71,8 @@ class ReviewEvent extends React.Component {
   render() {
     return (
       <div className="body reviewEvent row justify-content-around">
-        
         <div className="form reviewForm col-4">
           <h2>{this.props.location.state.event.title}</h2>
-        
           <div className="form-group">
             <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category" onChange={this.handleChange} value={this.state.category}>
               <option value="work">work</option>
@@ -149,24 +147,24 @@ class ReviewEvent extends React.Component {
               </div>
             </div>
           </div>
-          
+
           <div className="form-group">
             <h6>Further Reflections</h6>
             <textarea className="journalBox form-control" type="text" name="journal" onChange={this.handleChange} ref="journal" />
           </div>
-   
+
           <button className="btn btn-outline-info" type="submit" onClick={this.handleSubmit}>Submit</button>
-      
+
         </div>
-        
+
         <div className="col-4">
           <img src="/assets/reviewCat.png" className="img-fluid align-self-center" alt="Responsive" />
         </div>
-        
+
         {this.state.redirect && (
           <Redirect to="/" />
         )}
-        
+
       </div>
     );
   }
