@@ -25,7 +25,6 @@ class UpcomingEventEntry extends React.Component {
 
   render() {
     const { title, description, date } = this.props.event;
-    const displayDate = moment.unix(+date);
     const id = `#${title}`;
 
     return (

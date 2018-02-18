@@ -51,9 +51,11 @@ class PastEventsHome extends React.Component {
           <span className="fa fa-paper-plane" /> Play
         </Link>
         <h5>Most Recent</h5>
-        {this.state.events.map((event, i) => (
-          <PastEventEntry event={event} key={i} />
-        ))}
+          <div className="list-group">
+            {this.state.events.map((event, i) => (
+              <PastEventEntry event={event} key={i} />
+            ))}
+          </div>
       </div>
     );
   }

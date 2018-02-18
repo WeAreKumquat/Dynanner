@@ -65,13 +65,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #past-logs-home {
-  background-color: rgba(255, 255, 255, 0.8);
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  background-color: white;
   margin-top: 15px;
+  opacity: 0.8;
   padding: 20px;
 }
 
 .work-play-button {
   margin-bottom: 15px;
+}
+
+.past-event-entry {
+  background-color: none!important;
+  border-left: none;
+  border-right: none;
 }
 
 .form-group {
