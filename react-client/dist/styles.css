@@ -48,6 +48,10 @@ a:link {
   background-color: rgba(255, 255, 255, 0.8);
 }
 
+.form-group {
+  margin-bottom: 2em;
+}
+
 .reviewEvent {
   
 }
@@ -61,11 +65,6 @@ a:link {
 }
 
 .journalBox {
-  height: 15em;
+  height: 10em;
   width: 100%;
-}
-
-.reviewFormHeading {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  color: rgb(165, 185, 216);
 }
