@@ -1,32 +1,14 @@
 const request = require('request');
 const db = require('../database/index');
 const dotenv = require('dotenv').config();
+const { google } = require('googleapis');
 
-const refreshToken = async (token, callback) => {
-  const options = {
-    method: 'POST',
-    url: 'https://www.googleapis.com/oauth2/v4/token',
-    headers:
-      {
-        'Content-Type': 'application/json',
-      },
-    body:
-      {
-        client_id: process.env.GOOGLE_CLIENT_ID,
-        client_secret: process.env.GOOGLE_CLIENT_SECRET,
-        refresh_token: token,
-        grant_type: 'refresh_token',
-        // redirect_uri: 'http://localhost:3000/auth/google/callback',
-        redirect_uri: '/auth/google/callback',
-      },
-    json: true,
-  };
-  request(options, (error, response, body) => {
-    if (error) { console.log(error); }
-    console.log(body);
-    callback(body.access_token);
-  });
-};
+const OAuth2 = google.auth.OAuth2;
+const oauth2Client = new OAuth2(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  '/auth/google/callback',
+);
 
 const getEvents = async (token, callback) => {
   const options = {
@@ -42,15 +24,20 @@ const getEvents = async (token, callback) => {
   });
 };
 
-
-const addEventToGoogleCal = async (refreshtoken, event, authCode, callback) => {
-  await refreshToken(refreshtoken, (accessToken) => {
+const addEventToGoogleCal = async (refreshtoken, event, authCode, accesstoken, callback) => {
+  oauth2Client.setCredentials({
+    access_token: accesstoken,
+    refresh_token: refreshtoken,
+  });
+  oauth2Client.refreshAccessToken((err, tokens) => {
+    console.log(`TOKENS!!!!: ${tokens.access_token}`);
+    console.log(`date!!!!: ${event.date}`);
     const options = {
       method: 'POST',
       url: 'https://www.googleapis.com/calendar/v3/calendars/primary/events',
       headers:
         {
-          Authorization: accessToken,
+          Authorization: `Bearer ${tokens.access_token}`,
           'Content-Type': 'application/json',
         },
       body:
@@ -210,5 +197,4 @@ module.exports.removeEvent = removeEvent;
 module.exports.fetchUpcomingEvents = fetchUpcomingEvents;
 module.exports.fetchPastEvents = fetchPastEvents;
 module.exports.fetchReview = fetchReview;
-module.exports.refreshToken = refreshToken;
 module.exports.addEventToGoogleCal = addEventToGoogleCal;
