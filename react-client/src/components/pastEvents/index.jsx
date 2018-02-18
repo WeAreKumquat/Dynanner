@@ -68,13 +68,15 @@ class PastEvents extends React.Component {
       <div className="body">
         <div className="container-fluid contents">
           <div className="row justify-content-end">
-            <div className="col-lg-4">
-              <div className="row justify-content-center">
-                {/* work/play drop-down */}
-                <select value={this.state.category} onChange={this.handleChange}>
-                  <option value="work">Work</option>
-                  <option value="play">Play</option>
-                </select>
+            <div id="work-play-dropdown-col" className="col-lg-4">
+              <div className="d-flex row justify-content-center">
+                <div className="col-lg-10">
+                  {/* work/play drop-down */}
+                  <select className="form-control" value={this.state.category} onChange={this.handleChange}>
+                    <option value="work">Work</option>
+                    <option value="play">Play</option>
+                  </select>
+                </div>
               </div>
             </div> 
           </div>

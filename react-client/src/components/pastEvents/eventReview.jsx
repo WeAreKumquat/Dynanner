@@ -20,7 +20,7 @@ class EventReview extends React.Component {
           </div>          
           <div className="flex-column align-items-end">
             {/* event date */}
-            <small className="review-date">{moment(date).format('dddd, MMMM Do')}</small>
+            <span className="review-date">{moment(date).format('dddd, MMMM Do')}</span>
           </div>          
         </div>
         <div className="row justify-content-center">

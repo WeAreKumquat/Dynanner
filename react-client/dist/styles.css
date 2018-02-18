@@ -116,6 +116,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .review-date {
+  font-family: Quicksand;
   padding-right: 20px;
 }
 
@@ -125,6 +126,10 @@ h1, h2, h3, h4, h5, h6 {
   border-style: dotted;
   margin-bottom: 20px;
   padding-top: 10px;
+}
+
+#work-play-dropdown-col {
+  padding: 20px;
 }
 
 #past-events-list {
