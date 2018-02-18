@@ -7,6 +7,24 @@ a:link {
   color: black;
 }
 
+a:hover {
+  color: rgb(255, 213, 45);
+}
+
+.fa {
+  margin-right: .3em;
+}
+
+.btn-outline-info {
+  background-color: rgba(255, 255, 255, 0.6);  
+  font-family: Quicksand;
+  font-weight: 700;
+}
+
+.white-container {
+  border-radius: 15px;
+}
+
 #login-heading {
   font-family: Oleo Script Swash Caps;
 }
@@ -19,18 +37,20 @@ a:link {
   padding: 30px;
 }
 
-.contents {
-  padding: 20px;
+h1, h2, h3, h4, h5, h6 {
+  font-family: Quicksand;
+  font-weight: 500;
 }
 
-#add-event-button {
-  align-self: center;
+#upcoming-col {
+  padding-left: 0px;
 }
 
 #upcoming-events {
-  padding-top: 20px;
   background-color: white;
+  margin-top: 15px;
   opacity: 0.8;
+  padding: 20px 15px 15px 15px;
 }
 
 .upcoming-event-entry {
@@ -40,12 +60,51 @@ a:link {
   border-right: none;
 }
 
-.card .card-header{
+.card .card-header {
   background-color: transparent!important;
 }
 
+.date-row {
+  margin-bottom: 5px;
+}
+
+.upcoming-event-glyph {
+  color: rgb(91, 192, 222);
+}
+
+.upcoming-event-text {
+  color: black;
+}
+
+.upcoming-event-text:hover {
+  color: rgb(41, 145, 177);
+}
+
+.trashcan {
+  margin-top: 6px;
+}
+
 #past-logs-home {
-  background-color: rgba(255, 255, 255, 0.8);
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  background-color: white;
+  margin-top: 15px;
+  opacity: 0.8;
+  padding: 20px;
+}
+
+#past-logs-heading {
+  margin-bottom: 1em;
+}
+
+#recently-completed-heading {
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+
+.past-event-entry {
+  background-color: none!important;
+  border-left: none;
+  border-right: none;
 }
 
 .form-group {
