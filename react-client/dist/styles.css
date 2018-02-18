@@ -21,6 +21,11 @@ a:hover {
   font-weight: 700;
 }
 
+.btn-info {
+  font-family: Quicksand;
+  font-weight: 700;
+}
+
 .white-container {
   border-radius: 15px;
 }
@@ -142,20 +147,19 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1em;
 }
 
+/* review event page */
+
 .form-group {
   margin-bottom: 2em;
 }
 
-.reviewEvent {
-  
+.review-glyph {
+  margin-right: 0em!important;
 }
 
 .deleteProsCons {
-  margin: 15px;
-}
-
-.reviewForm {
-  
+  border-radius: 5px;
+  margin-left: 15px;
 }
 
 .journalBox {

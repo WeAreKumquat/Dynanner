@@ -91,11 +91,13 @@ class ReviewEvent extends React.Component {
                 onChange={this.handleChange}
                 ref="pro"
               />
-              <div className="input-group-prepend">
-                <button className="btn btn-secondary" type="submit" onClick={this.addPro}>save this entry</button>
+              <div className="input-group-append">
+                <button className="btn btn-info" type="submit" onClick={this.addPro}>
+                  <span className="fa fa-plus review-glyph" />
+                </button>
                 <button
                   type="button"
-                  className="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                  className="btn btn-outline-info dropdown-toggle dropdown-toggle-split"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
@@ -104,9 +106,13 @@ class ReviewEvent extends React.Component {
                 </button>
                 <div className="dropdown-menu">
                   {this.state.pros.map((pro, i, pros) => (
-                    <div className= "dropdown-item" key={i}>
-                      <h6>{pro}</h6>
-                      <button className="btn-outline-secondary deleteProsCons" type="submit" value={pros[i]} onClick={this.deletePro}>delete</button>
+                    <div className="dropdown-item" key={i}>
+                      <h6>
+                        {pro}
+                        <button className="btn-outline-info deleteProsCons" type="submit" value={pros[i]} onClick={this.deletePro}>
+                          <span className="fa fa-trash-alt review-glyph" />
+                        </button>
+                      </h6>
                     </div>
                   ))}
                 </div>
@@ -125,11 +131,13 @@ class ReviewEvent extends React.Component {
                 onChange={this.handleChange}
                 ref="con"
               />
-              <div className="input-group-prepend">
-                <button className="btn btn-secondary" type="submit" onClick={this.addCon}>save this entry</button>
+              <div className="input-group-append">
+                <button className="btn btn-info" type="submit" onClick={this.addCon}>
+                  <span className="fa fa-plus review-glyph" />
+                </button>
                 <button
                   type="button"
-                  className="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                  className="btn btn-outline-info dropdown-toggle dropdown-toggle-split"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
@@ -139,8 +147,12 @@ class ReviewEvent extends React.Component {
                 <div className="dropdown-menu">
                   {this.state.cons.map((con, i, cons) => (
                     <div className="dropdown-item" key={i}>
-                      <h6>{con}</h6>
-                      <button className="btn-outline-secondary deleteProsCons" type="submit" value={cons[i]} onClick={this.deleteCon}>delete</button>
+                      <h6>
+                        {con}
+                        <button className="btn-outline-info deleteProsCons" type="submit" value={cons[i]} onClick={this.deleteCon}>
+                          <span className="fa fa-trash-alt review-glyph" />
+                        </button>
+                      </h6>
                     </div>
                   ))}
                 </div>
