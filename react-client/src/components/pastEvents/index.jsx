@@ -9,7 +9,7 @@ class PastEvents extends React.Component {
     this.state = {
       events: [],
       currentReview: '',
-      currentReviewTitle: '',
+      currentReviewEvent: '',
     };
     this.getPastEvents = this.getPastEvents.bind(this);
     this.setCurrentReview = this.setCurrentReview.bind(this);
@@ -21,8 +21,8 @@ class PastEvents extends React.Component {
     this.getPastEvents(category);
 
     if (this.props.location.state.reviewEvent) {
-      const { _id, title } = this.props.location.state.reviewEvent;
-      this.setCurrentReview(_id, title);
+      const { _id } = this.props.location.state.reviewEvent;
+      this.setCurrentReview(_id, this.props.location.state.reviewEvent);
     }
   }
 
@@ -41,8 +41,8 @@ class PastEvents extends React.Component {
       });
   }
 
-  setCurrentReview(eventId, title) {
-    this.setState({ currentReviewTitle: title });
+  setCurrentReview(eventId, event) {
+    this.setState({ currentReviewEvent: event });
 
     Axios.get('/api/getReview', {
       params: { eventId },
@@ -62,7 +62,7 @@ class PastEvents extends React.Component {
   }
 
   render() {
-    const { events, currentReview, currentReviewTitle, category } = this.state;
+    const { events, currentReview, currentReviewEvent, category } = this.state;
 
     return (
       <div className="body">
@@ -71,7 +71,7 @@ class PastEvents extends React.Component {
           <div className="row">
             <div className="col-lg-8">
               {/* currently selected event's review */}
-              <EventReview currentReview={currentReview} currentReviewTitle={currentReviewTitle} />
+              <EventReview currentReview={currentReview} currentReviewEvent={currentReviewEvent} />
             </div>
             <div className="col-lg-4">
               {/* work/play drop-down */}

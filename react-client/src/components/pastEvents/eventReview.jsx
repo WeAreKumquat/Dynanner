@@ -6,15 +6,17 @@ class EventReview extends React.Component {
     this.state = {};
   }
   render() {
-    const { currentReview, currentReviewTitle } = this.props;
+    const { currentReview, currentReviewEvent } = this.props;
     const { pros, cons, journal } = currentReview;
+    const { title, description, date } = currentReviewEvent;
 
     return (
       <div>
         {/* event name */}
-        <h3>{currentReviewTitle}</h3>
+        <h3>{title}</h3>
         <br />
         {/* event date */}
+        {/* event description */}
         {/* pros */}
         <h5>Pros:</h5>
         <ul>
