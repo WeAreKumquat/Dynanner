@@ -42,6 +42,8 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
 
+/* homepage */
+
 #upcoming-col {
   padding-left: 0px;
 }
@@ -105,6 +107,30 @@ h1, h2, h3, h4, h5, h6 {
   background-color: none!important;
   border-left: none;
   border-right: none;
+}
+
+/* past events page */
+
+#current-review {
+  background-color: rgba(255, 255, 255, 0.8);  
+  padding: 20px;
+}
+
+.review-date {
+  padding-right: 20px;
+}
+
+.review-event-description {
+  border-color: rgb(255, 213, 45);
+  border-radius: 15px;
+  border-style: dotted;
+  margin-bottom: 20px;
+  padding-top: 10px;
+}
+
+#past-events-list {
+  background-color: white;
+  opacity: 0.8;
 }
 
 .form-group {

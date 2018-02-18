@@ -66,19 +66,24 @@ class PastEvents extends React.Component {
 
     return (
       <div className="body">
-        <h3>Past Events</h3>
         <div className="container-fluid contents">
-          <div className="row">
-            <div className="col-lg-8">
+          <div className="row justify-content-end">
+            <div className="col-lg-4">
+              <div className="row justify-content-center">
+                {/* work/play drop-down */}
+                <select value={this.state.category} onChange={this.handleChange}>
+                  <option value="work">Work</option>
+                  <option value="play">Play</option>
+                </select>
+              </div>
+            </div> 
+          </div>
+          <div className="row justify-content-between">
+            <div id="current-review" className="col-lg-8 white-container">
               {/* currently selected event's review */}
               <EventReview currentReview={currentReview} currentReviewEvent={currentReviewEvent} />
             </div>
-            <div className="col-lg-4">
-              {/* work/play drop-down */}
-              <select value={this.state.category} onChange={this.handleChange}>
-                <option value="work">Work</option>
-                <option value="play">Play</option>
-              </select>
+            <div className="col-lg-4 white-container">
               {/* list of past events */}
               <EventsList events={events} setCurrentReview={this.setCurrentReview} categorySelected={category} />
             </div>
