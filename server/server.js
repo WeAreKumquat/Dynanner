@@ -34,7 +34,7 @@ passport.use('google', new GoogleStrategy({
   scope: ['https://www.googleapis.com/auth/plus.login',
     'https://www.googleapis.com/auth/plus.profile.emails.read',
     'https://www.googleapis.com/auth/calendar'],
-}, async (accessToken, refreshtoken, params, profile, done) => {
+}, async (accesstoken, refreshtoken, params, profile, done) => {
   try {
     // check whether current user exists in db
     const existingUser = await db.User.findOne({ googleId: profile.id });
@@ -43,6 +43,7 @@ passport.use('google', new GoogleStrategy({
     if (!existingUser) {
       newUser = new db.User({
         refreshToken: refreshtoken,
+        accessToken: accesstoken,
         googleId: profile.id,
         email: profile.emails[0].value,
         name: profile.displayName,
@@ -56,7 +57,7 @@ passport.use('google', new GoogleStrategy({
       });
     }
     // get events from google calendar
-    await controller.getEvents(accessToken, (events) => {
+    await controller.getEvents(accesstoken, (events) => {
       const calEvents = JSON.parse(events).items.slice(-5);
       calEvents.forEach(async (event) => {
         await controller.addEvent(profile.id, {
