@@ -27,7 +27,7 @@ class UpcomingEvents extends React.Component {
 
   render() {
     return (
-      <div id="upcoming-events">
+      <div id="upcoming-events" className="white-container">
         <div id="accordion">
           <h4>Upcoming Events</h4>
           {this.state.events.map((event, i) => (

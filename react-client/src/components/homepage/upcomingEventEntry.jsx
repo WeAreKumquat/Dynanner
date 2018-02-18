@@ -34,16 +34,20 @@ class UpcomingEventEntry extends React.Component {
             {moment(date).isValid() ? <small className="upcoming-date">{moment(date).format('dddd, MMMM Do')}</small> : <small className="upcoming-date">{date}</small>}
           </div>
           <div className="row justify-content-between">
-            <h5 className="mb-0">
-              <Link to={{pathname: "/reviewEvent", state: {event: this.props.event}}} >
-                <span className="fa fa-check" />
-              </Link>
-              <button className="btn btn-link collapsed" data-toggle="collapse" data-target={id} aria-expanded="false" aria-controls="collapseOne">
-                {title}
-              </button>
-            </h5>
+            <span>
+              <h5 className="mb-0">
+                <Link to={{pathname: "/reviewEvent", state: {event: this.props.event}}} className="upcoming-event-glyph">
+                  <span className="fa fa-check" />
+                </Link>    
+                <button className="btn btn-link collapsed upcoming-event-text" data-toggle="collapse" data-target={id} aria-expanded="false" aria-controls="collapseOne">
+                  <h5 className="mb-0">
+                    {title}
+                  </h5>
+                </button>
+              </h5>
+            </span>
             <h5 className="mb-0 trashcan">
-              <a href="/" onClick={this.deleteEvent}>
+              <a href="/" onClick={this.deleteEvent} className="upcoming-event-glyph">
                 <span className="fa fa-trash-alt" />
               </a>
             </h5>
