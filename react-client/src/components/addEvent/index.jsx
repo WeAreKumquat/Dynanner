@@ -82,23 +82,31 @@ class AddEvent extends React.Component {
     const { redirect, calSrc } = this.state;
     return (
       <div className="body">
-        <h1>Add an Event</h1>
-        <div className="container-fluid">
-          <div className="row justify-content-between">
-            <div className="col-md-6 col-lg-4">
-              <select name="category" onChange={this.handleChange} value={this.state.category}>
+        
+        <div className="row justify-content-around">
+        
+          <div className="form col-3">
+            <h2>Add an Event</h2>
+            
+            <div className="form-group">
+              <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category" onChange={this.handleChange} value={this.state.category}>
                 <option value="work">work</option>
                 <option value="play">play</option>
               </select>
-              <br />
+            </div>
+
+            <div className="form-group">
+              
+              <h6>Title</h6>
+              <input className="form-control" type="text" onChange={this.handleChange} name="title" ref="title" />
+                        
+            </div>          
+            
+            <div className="form-group">
               <div>
-                Title: &ensp;
-                <input type="text" onChange={this.handleChange} name="title" ref="title" />
-              </div>
-              <br />
-              <div>
-                Date: &ensp;
-                <DatePicker 
+                <h6>Date</h6>
+                <DatePicker
+                  className="form-control"
                   selected={this.state.date}
                   onChange={this.changeDate}
                   placeholderText="Click to select date."
@@ -112,24 +120,34 @@ class AddEvent extends React.Component {
                   timeCaption="time"
                 />
               </div>
-              <br />
+              
+            </div>
+            
+            <div className="form-group">
               <div>
-                Description: &ensp;
-                <input type="text" onChange={this.handleChange} name="description" ref="description" />
+                <h6>Description</h6>
+                <input className="form-control" type="text" onChange={this.handleChange} name="description" ref="description" />
               </div>
-              <br />
-              <button type="submit" onClick={this.handleSubmit}>
-                Submit
-              </button>
+              
             </div>
-            <div className="col-md-6 col-lg-8">
-              <iframe title="user-calendar" src={calSrc} width="800" height="600" frameBorder="0" scrolling="no" />
-            </div>
+              
+            <button className="btn btn-outline-info" type="submit" onClick={this.handleSubmit}>
+              Submit
+            </button>
+                  
           </div>
+                
+          <div className="col-7">
+            <iframe title="user-calendar" src={calSrc} width="800" height="600" frameBorder="0" scrolling="no" />
+          </div>
+        
+        
         </div>
+
         {redirect && (
           <Redirect to={{ pathname: '/pastEvents', state: { category: this.state.category } }} component={PastEvents} />
         )}
+
       </div>
     );
   }
