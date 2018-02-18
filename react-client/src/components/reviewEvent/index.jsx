@@ -73,7 +73,7 @@ class ReviewEvent extends React.Component {
       <div className="body reviewEvent row justify-content-around">
         
         <div className="form reviewForm col-4">
-          <h2 className="reviewFormHeading">{this.props.location.state.event.title}</h2>
+          <h2>{this.props.location.state.event.title}</h2>
         
           <div className="form-group">
             <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category" onChange={this.handleChange} value={this.state.category}>
@@ -83,7 +83,7 @@ class ReviewEvent extends React.Component {
           </div>
 
           <div className="form-group">
-            Things You Did Well: <br />
+            <h6>Things You Did Well</h6>
             <div className="input-group mb-3">
               <input
                 type="text"
@@ -102,12 +102,12 @@ class ReviewEvent extends React.Component {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <span className="sr-only">Pros</span>
+                  <span className="sr-only"><h6>Pros</h6></span>
                 </button>
                 <div className="dropdown-menu">
                   {this.state.pros.map((pro, i, pros) => (
                     <div className= "dropdown-item" key={i}>
-                      {pro}
+                      <h6>{pro}</h6>
                       <button className="btn-outline-secondary deleteProsCons" type="submit" value={pros[i]} onClick={this.deletePro}>delete</button>
                     </div>
                   ))}
@@ -117,7 +117,7 @@ class ReviewEvent extends React.Component {
           </div>
 
           <div className="form-group">
-            Things You Did Poorly<br />
+            <h6>Things You Did Poorly<br /></h6>
             <div className="input-group mb-3">
               <input
                 type="text"
@@ -136,12 +136,12 @@ class ReviewEvent extends React.Component {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <span className="sr-only">Cons</span>
+                  <span className="sr-only"><h6>Cons</h6></span>
                 </button>
                 <div className="dropdown-menu">
                   {this.state.cons.map((con, i, cons) => (
                     <div className="dropdown-item" key={i}>
-                      {con}
+                      <h6>{con}</h6>
                       <button className="btn-outline-secondary deleteProsCons" type="submit" value={cons[i]} onClick={this.deleteCon}>delete</button>
                     </div>
                   ))}
@@ -151,11 +151,11 @@ class ReviewEvent extends React.Component {
           </div>
           
           <div className="form-group">
-            Further Reflections <br />
+            <h6>Further Reflections</h6>
             <textarea className="journalBox form-control" type="text" name="journal" onChange={this.handleChange} ref="journal" />
           </div>
    
-          <button className="btn btn-primary" type="submit" onClick={this.handleSubmit}>Submit</button>
+          <button className="btn btn-outline-info" type="submit" onClick={this.handleSubmit}>Submit</button>
       
         </div>
         
@@ -166,6 +166,7 @@ class ReviewEvent extends React.Component {
         {this.state.redirect && (
           <Redirect to="/" />
         )}
+        
       </div>
     );
   }

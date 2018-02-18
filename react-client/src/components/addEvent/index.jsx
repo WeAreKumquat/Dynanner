@@ -87,7 +87,7 @@ class AddEvent extends React.Component {
         
           <div className="form col-3">
             <h2>Add an Event</h2>
-            <br />
+            
             <div className="form-group">
               <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category" onChange={this.handleChange} value={this.state.category}>
                 <option value="work">work</option>
@@ -96,10 +96,10 @@ class AddEvent extends React.Component {
             </div>
 
             <div className="form-group">
-              <br />
+              
               <h6>Title</h6>
               <input className="form-control" type="text" onChange={this.handleChange} name="title" ref="title" />
-              <br />          
+                        
             </div>          
             
             <div className="form-group">
@@ -120,7 +120,7 @@ class AddEvent extends React.Component {
                   timeCaption="time"
                 />
               </div>
-              <br />
+              
             </div>
             
             <div className="form-group">
@@ -128,7 +128,7 @@ class AddEvent extends React.Component {
                 <h6>Description</h6>
                 <input className="form-control" type="text" onChange={this.handleChange} name="description" ref="description" />
               </div>
-              <br />
+              
             </div>
               
             <button className="btn btn-outline-info" type="submit" onClick={this.handleSubmit}>
