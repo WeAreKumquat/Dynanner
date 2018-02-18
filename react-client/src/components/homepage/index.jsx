@@ -44,7 +44,7 @@ class Home extends React.Component {
             <div id="upcoming-col" className="col-lg-8">
               <UpcomingEvents />
             </div>
-            <div className="col-lg-4"  id="past-logs-home">
+            <div className="col-lg-4 white-container"  id="past-logs-home">
               <PastEventsHome />
             </div>
           </div>
