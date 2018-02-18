@@ -9,7 +9,7 @@ class PastEvents extends React.Component {
     this.state = {
       events: [],
       currentReview: '',
-      currentReviewTitle: '',
+      currentReviewEvent: '',
     };
     this.getPastEvents = this.getPastEvents.bind(this);
     this.setCurrentReview = this.setCurrentReview.bind(this);
@@ -21,8 +21,8 @@ class PastEvents extends React.Component {
     this.getPastEvents(category);
 
     if (this.props.location.state.reviewEvent) {
-      const { _id, title } = this.props.location.state.reviewEvent;
-      this.setCurrentReview(_id, title);
+      const { _id } = this.props.location.state.reviewEvent;
+      this.setCurrentReview(_id, this.props.location.state.reviewEvent);
     }
   }
 
@@ -41,8 +41,8 @@ class PastEvents extends React.Component {
       });
   }
 
-  setCurrentReview(eventId, title) {
-    this.setState({ currentReviewTitle: title });
+  setCurrentReview(eventId, event) {
+    this.setState({ currentReviewEvent: event });
 
     Axios.get('/api/getReview', {
       params: { eventId },
@@ -62,23 +62,30 @@ class PastEvents extends React.Component {
   }
 
   render() {
-    const { events, currentReview, currentReviewTitle, category } = this.state;
+    const { events, currentReview, currentReviewEvent, category } = this.state;
 
     return (
       <div className="body">
-        <h3>Past Events</h3>
         <div className="container-fluid contents">
-          <div className="row">
-            <div className="col-lg-8">
+          <div className="row justify-content-end">
+            <div id="work-play-dropdown-col" className="col-lg-4">
+              <div className="d-flex row justify-content-center">
+                <div className="col-lg-10">
+                  {/* work/play drop-down */}
+                  <select className="form-control" value={this.state.category} onChange={this.handleChange}>
+                    <option value="work">Work</option>
+                    <option value="play">Play</option>
+                  </select>
+                </div>
+              </div>
+            </div> 
+          </div>
+          <div className="row justify-content-between">
+            <div id="current-review" className="col-lg-8 white-container">
               {/* currently selected event's review */}
-              <EventReview currentReview={currentReview} currentReviewTitle={currentReviewTitle} />
+              <EventReview currentReview={currentReview} currentReviewEvent={currentReviewEvent} />
             </div>
-            <div className="col-lg-4">
-              {/* work/play drop-down */}
-              <select value={this.state.category} onChange={this.handleChange}>
-                <option value="work">Work</option>
-                <option value="play">Play</option>
-              </select>
+            <div className="col-lg-4 white-container">
               {/* list of past events */}
               <EventsList events={events} setCurrentReview={this.setCurrentReview} categorySelected={category} />
             </div>

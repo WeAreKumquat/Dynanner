@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 class EventReview extends React.Component {
   constructor(props) {
@@ -6,15 +7,28 @@ class EventReview extends React.Component {
     this.state = {};
   }
   render() {
-    const { currentReview, currentReviewTitle } = this.props;
+    const { currentReview, currentReviewEvent } = this.props;
     const { pros, cons, journal } = currentReview;
+    const { title, description, date } = currentReviewEvent;
 
     return (
-      <div>
-        {/* event name */}
-        <h3>{currentReviewTitle}</h3>
-        <br />
-        {/* event date */}
+      <div className="flex-column align-items-start">
+        <div className="d-flex row justify-space-between">
+          <div className="col">
+            {/* event name */}
+            <h3>{title}</h3>
+          </div>          
+          <div className="flex-column align-items-end">
+            {/* event date */}
+            <span className="review-date">{moment(date).format('dddd, MMMM Do')}</span>
+          </div>          
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-lg-11 review-event-description">
+            {/* event description */}
+            <p>{description}</p>
+          </div>
+        </div>
         {/* pros */}
         <h5>Pros:</h5>
         <ul>

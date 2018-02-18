@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 class EventListEntry extends React.Component {
   constructor(props) {
@@ -11,19 +12,21 @@ class EventListEntry extends React.Component {
     // pass clicked event's id into setCurrentReview
     const { setCurrentReview, event } = this.props;
 
-    setCurrentReview(event._id, event.title);
-    console.log(event);
+    setCurrentReview(event._id, event);
   }
 
   render() {
-    const { title } = this.props.event;
+    const { title, date } = this.props.event;
 
     return (
-      <button type="button" className="list-group-item list-group-item-action" onClick={this.handleClick}>
-        {/* date */}
+      <a href="#" className="list-group-item list-group-item-action flex-column align-items-start past-event-entry" onClick={this.handleClick}>
+        <div className="d-flex w-100 justify-content-end">
+          {/* date */}
+          <small className="date-row">{moment(date).format('dddd, MMMM Do')}</small>
+        </div>
         {/* event list entry name */}
         <h6>{title}</h6>
-      </button>
+      </a>
     );
   }
 }

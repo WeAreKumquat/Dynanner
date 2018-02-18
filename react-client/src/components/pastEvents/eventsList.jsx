@@ -12,13 +12,13 @@ class EventsList extends React.Component {
     const { events, setCurrentReview } = this.props;
 
     return (
-      <div>
-        <h4>Your Past Events</h4>
-        <ul className="list-group">
+      <div id="past-events-list">
+        <h4 id="past-events-heading">Your Past Events</h4>
+        <div className="list-group">
           {events.map((event, i) => (
             <EventListEntry event={event} key={i} setCurrentReview={setCurrentReview} />
           ))}
-        </ul>
+        </div>
       </div>
     );
   }
