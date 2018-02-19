@@ -10,7 +10,7 @@ const PastEventEntry = ({ event }) => {
       className="list-group-item list-group-item-action flex-column align-items-start past-event-entry"
       to={{
         pathname: "/pastEvents",
-        state: { reviewEvent: event },
+        state: { reviewEvent: event, category: event.category },
       }}
     >
       <div className="d-flex w-100 justify-content-end">

@@ -64,7 +64,7 @@ class PastEvents extends React.Component {
 
   setCurrentReview(eventId, event) {
     this.setState({ currentReviewEvent: event });
-
+    this.props.location.state.category = event.category;
     Axios.get('/api/getReview', {
       params: { eventId },
     })
@@ -79,10 +79,11 @@ class PastEvents extends React.Component {
   handleChange(event) {
     const category = event.target.value;
     this.getPastEvents(category);
+    this.props.location.state.category = category;
   }
 
   render() {
-    const { events, currentReview, currentReviewEvent, category } = this.state;
+    const { events, currentReview, currentReviewEvent } = this.state;
 
     return (
       <div className="body">
@@ -92,7 +93,7 @@ class PastEvents extends React.Component {
               <div className="d-flex row justify-content-center">
                 <div className="col-lg-10">
                   {/* work/play drop-down */}
-                  <select className="form-control" value={this.state.category} onChange={this.handleChange}>
+                  <select className="form-control" value={this.props.location.state.category} onChange={this.handleChange}>
                     <option value="work">Work</option>
                     <option value="play">Play</option>
                   </select>
@@ -107,7 +108,7 @@ class PastEvents extends React.Component {
             </div>
             <div className="col-lg-4 white-container">
               {/* list of past events */}
-              <EventsList events={events} setCurrentReview={this.setCurrentReview} categorySelected={category} />
+              <EventsList events={events} setCurrentReview={this.setCurrentReview} />
             </div>
           </div>
         </div>
