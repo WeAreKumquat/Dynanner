@@ -1,5 +1,4 @@
 import React from 'react';
-import Axios from 'axios';
 import EventListEntry from './eventListEntry.jsx';
 
 class EventsList extends React.Component {
