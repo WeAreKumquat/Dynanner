@@ -47,11 +47,32 @@ h1, h2, h3, h4, h5, h6 {
 
 .jumbotron {
   background-color: rgba(255, 255, 255, 0.75);
-  margin-top: 75px;
+  margin-top: 50px;
 }
 
 #login-heading {
   font-family: Oleo Script Swash Caps;
+}
+
+.login-container {
+  background-color: rgba(255, 255, 255, 0.75);
+  height: 100%;
+  padding: 20px;
+}
+
+.content-row {
+  margin-bottom: 50px;
+}
+
+.step-row {
+  margin-top: 15px;
+}
+
+.screenshot {
+  border-color : rgb(255, 213, 45);
+  border-style: double;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 /* homepage */
