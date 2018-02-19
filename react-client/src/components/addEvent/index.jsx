@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import PastEvents from '../pastEvents/index.jsx';
+import Axios from 'axios';
 
 class AddEvent extends React.Component {
   constructor(props) {
@@ -14,16 +15,32 @@ class AddEvent extends React.Component {
       // date: {},
       description: 'just do it',
       calSrc: '',
+      events: [],
       redirect: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getEmail = this.getEmail.bind(this);
     this.changeDate = this.changeDate.bind(this);
+    this.getPastEvents = this.getPastEvents.bind(this);
   }
 
   componentDidMount() {
     this.getEmail();
+    this.getPastEvents();
+  }
+
+  getPastEvents(category) {
+    Axios.get('/api/pastEvents', {
+      params: { category },
+    })
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ events: response.data });
+      })
+      .catch((error) => {
+        console.error('past event error', error);
+      });
   }
 
   getEmail() {
@@ -140,7 +157,7 @@ class AddEvent extends React.Component {
         </div>
 
         {redirect && (
-          <Redirect to={{ pathname: '/pastEvents', state: { category: this.state.category } }} component={PastEvents} />
+          <Redirect to={{ pathname: '/pastEvents', state: { category: this.state.category, title: this.state.title, events: this.state.events } }} component={PastEvents} />
         )}
 
       </div>

@@ -19,21 +19,42 @@ class PastEvents extends React.Component {
   componentDidMount() {
     const category = this.props.location.state.category;
     this.getPastEvents(category);
-
     if (this.props.location.state.reviewEvent) {
       const { _id } = this.props.location.state.reviewEvent;
       this.setCurrentReview(_id, this.props.location.state.reviewEvent);
+    } else if (this.props.location.state.events) {
+      let haveDisplay = false;
+      const displayEvent = this.props.location.state.events.reduce((display, event) => {
+        if (event.title.toLowerCase() === this.props.location.state.title.toLowerCase() && !haveDisplay) {
+          display = event;
+          haveDisplay = true;
+        }
+        return display;
+      }, '');
+      if (displayEvent) {
+        const { _id } = displayEvent;
+        this.setCurrentReview(_id, displayEvent);
+      } else {
+        const display = this.props.location.state.events.filter(event => event.category === this.props.location.state.category);
+        if (display.length) {
+          const { _id } = display[0];
+          this.setCurrentReview(_id, display[0]);
+        } else {
+          const display = this.props.location.state.events;
+          if (display.length) {
+            const { _id } = display[0];
+            this.setCurrentReview(_id, display[0]);
+          }
+        }
+      }
     }
   }
 
   getPastEvents(category) {
-    console.log('getting past events');
-
     Axios.get('/api/pastEvents', {
       params: { category },
     })
       .then((response) => {
-        console.log(response.data);
         this.setState({ events: response.data });
       })
       .catch((error) => {
@@ -49,7 +70,6 @@ class PastEvents extends React.Component {
     })
       .then((response) => {
         this.setState({ currentReview: response.data });
-        console.log(response.data);
       })
       .catch((error) => {
         console.error('error getting review', error);
