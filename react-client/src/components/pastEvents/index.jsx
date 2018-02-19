@@ -64,7 +64,7 @@ class PastEvents extends React.Component {
 
   setCurrentReview(eventId, event) {
     this.setState({ currentReviewEvent: event });
-
+    this.props.location.state.category = event.category;
     Axios.get('/api/getReview', {
       params: { eventId },
     })
@@ -83,7 +83,7 @@ class PastEvents extends React.Component {
   }
 
   render() {
-    const { events, currentReview, currentReviewEvent, category } = this.state;
+    const { events, currentReview, currentReviewEvent } = this.state;
 
     return (
       <div className="body">
@@ -108,7 +108,7 @@ class PastEvents extends React.Component {
             </div>
             <div className="col-lg-4 white-container">
               {/* list of past events */}
-              <EventsList events={events} setCurrentReview={this.setCurrentReview} categorySelected={category} />
+              <EventsList events={events} setCurrentReview={this.setCurrentReview} />
             </div>
           </div>
         </div>
