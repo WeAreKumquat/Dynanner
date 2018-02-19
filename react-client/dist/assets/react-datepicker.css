@@ -268,7 +268,7 @@
   height: calc(195px + (1.7rem / 2));
   overflow-y: scroll;
   padding-left: 0px;
-  /* padding-right: 30px; */
+  padding-right: 30px;
   width: 100%;
   box-sizing: content-box;
 }
