@@ -1,6 +1,8 @@
 import React from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
+import webPush from 'web-push';
+import serviceWorker from '../../../serviceWorker';
 import UpcomingEvents from './upcomingEvents.jsx';
 import PastEventsHome from './pastEvents.jsx';
 
@@ -20,6 +22,69 @@ class Home extends React.Component {
       .catch((error) => {
         console.error('error getting current user', error);
       });
+
+    Notification.requestPermission().then((status) => {
+      if (status === 'denied') {
+        console.log('The user has blocked notifications.');
+      } else if (status === 'granted') {
+        console.log('Initializing service worker.');
+        this.initializeServiceWorker();
+      }
+    });
+  }
+
+  initializeServiceWorker() {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register(serviceWorker)
+        .then(this.handleSWRegistration)
+        .then(this.saveSubscription);
+    } else {
+      console.log('Service workers aren\'t supported in this browser.');
+    }
+  }
+
+  handleSWRegistration(reg) {
+    if (reg.installing) {
+      console.log('Service worker installing.');
+    } else if (reg.waiting) {
+      console.log('Service worker installed.');
+    } else if (reg.active) {
+      console.log('Service worker active.');
+    }
+
+    swRegistration = reg;
+    initializeState(reg);
+  }
+
+  saveSubscription(reg) {
+    let subscribeParams = { userVisibleOnly: true };
+    const applicationServerKey = this.urlB64ToUint8Array('BBnaIXuSqE8E-boIMUcAYj6RkLHNCJH59KjhDZrwwB-8CzcaBSjSod5RCB1mqw1hiC3lQVJmHSCfnrH8HKvWhbA');
+    subscribeParams.applicationServerKey = applicationServerKey;
+
+    reg.pushManager.subscribe(subscribeParams)
+      .then((subscription) => {
+        this.setState({ isSubscribed: true });
+        Axios.post('/api/saveSubscription', { subscription })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      });
+  }
+
+  urlB64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+        .replace(/\-/g, '+')
+        .replace(/_/g, '/');
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+    for (var i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
   }
 
   render() {
