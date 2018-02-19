@@ -8,17 +8,25 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="container-fluid">
-        <div className="row align-items-center"> 
-          <div className="col align-self-center">
-            <h1 id="login-heading">Dynanner</h1>
-            {/* Google auth login */}
-            <a href="/auth/google" className="btn btn-outline-info">
-              <span className="fab fa-google-plus-g" />  Log In
-            </a>
+      <div className="jumbotron jumbotron-fluid">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="flex-column align-items-center">
+              <a href="/">
+                <h1 id="login-heading" className="display-2">Dynanner</h1>
+              </a>
+              <h5 className="text-center">
+                The Dynamic Journal-Planner
+              </h5>
+              {/* Google auth login */}
+              <a href="/auth/google" className="btn btn-outline-info btn-block">
+                <span className="fab fa-google-plus-g" />  Log In with Google
+              </a>
+            </div>
           </div>
         </div>
       </div>
+
     );
   }
 }
