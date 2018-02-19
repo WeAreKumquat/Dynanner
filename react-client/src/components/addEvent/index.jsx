@@ -99,12 +99,11 @@ class AddEvent extends React.Component {
     const { redirect, calSrc } = this.state;
     return (
       <div className="body">
-        
+
         <div className="row justify-content-around">
-        
-          <div className="form col-3">
+
+          <div className="form col-4">
             <h2>Add an Event</h2>
-            
             <div className="form-group">
               <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category" onChange={this.handleChange} value={this.state.category}>
                 <option value="work">work</option>
@@ -113,12 +112,10 @@ class AddEvent extends React.Component {
             </div>
 
             <div className="form-group">
-              
               <h6>Title</h6>
               <input className="form-control" type="text" onChange={this.handleChange} name="title" ref="title" />
-                        
             </div>
-            
+
             <div className="form-group">
               <div>
                 <h6>Date</h6>
@@ -137,28 +134,26 @@ class AddEvent extends React.Component {
                   timeCaption="time"
                 />
               </div>
-              
+
             </div>
-            
+
             <div className="form-group">
               <div>
                 <h6>Description</h6>
                 <input className="form-control" type="text" onChange={this.handleChange} name="description" ref="description" />
               </div>
-              
             </div>
-              
+
             <button className="btn btn-outline-info" type="submit" onClick={this.handleSubmit}>
               Submit
             </button>
-                  
+
           </div>
-                
+
           <div className="col-7">
             <iframe title="user-calendar" src={calSrc} width="800" height="600" frameBorder="0" scrolling="no" />
           </div>
-        
-        
+
         </div>
 
         {redirect && (

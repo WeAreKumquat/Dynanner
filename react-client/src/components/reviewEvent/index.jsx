@@ -22,7 +22,7 @@ class ReviewEvent extends React.Component {
     this.deleteCon = this.deleteCon.bind(this);
   }
   handleChange(event) {
-    const name = event.target.name;
+    const { name } = event.target;
     this.setState({
       [name]: event.target.value,
     });
@@ -71,10 +71,8 @@ class ReviewEvent extends React.Component {
   render() {
     return (
       <div className="body reviewEvent row justify-content-around">
-        
         <div className="form reviewForm col-4">
           <h2>{this.props.location.state.event.title}</h2>
-        
           <div className="form-group">
             <select className="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category" onChange={this.handleChange} value={this.state.category}>
               <option value="work">work</option>
@@ -93,11 +91,13 @@ class ReviewEvent extends React.Component {
                 onChange={this.handleChange}
                 ref="pro"
               />
-              <div className="input-group-prepend">
-                <button className="btn btn-secondary" type="submit" onClick={this.addPro}>save this entry</button>
+              <div className="input-group-append">
+                <button className="btn btn-info" type="submit" onClick={this.addPro}>
+                  <span className="fa fa-plus review-glyph" />
+                </button>
                 <button
                   type="button"
-                  className="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                  className="btn btn-outline-info dropdown-toggle dropdown-toggle-split"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
@@ -106,9 +106,13 @@ class ReviewEvent extends React.Component {
                 </button>
                 <div className="dropdown-menu">
                   {this.state.pros.map((pro, i, pros) => (
-                    <div className= "dropdown-item" key={i}>
-                      <h6>{pro}</h6>
-                      <button className="btn-outline-secondary deleteProsCons" type="submit" value={pros[i]} onClick={this.deletePro}>delete</button>
+                    <div className="dropdown-item" key={i}>
+                      <h6>
+                        {pro}
+                        <button className="btn-outline-info deleteProsCons" type="submit" value={pros[i]} onClick={this.deletePro}>
+                          <span className="fa fa-trash-alt review-glyph" />
+                        </button>
+                      </h6>
                     </div>
                   ))}
                 </div>
@@ -127,11 +131,13 @@ class ReviewEvent extends React.Component {
                 onChange={this.handleChange}
                 ref="con"
               />
-              <div className="input-group-prepend">
-                <button className="btn btn-secondary" type="submit" onClick={this.addCon}>save this entry</button>
+              <div className="input-group-append">
+                <button className="btn btn-info" type="submit" onClick={this.addCon}>
+                  <span className="fa fa-plus review-glyph" />
+                </button>
                 <button
                   type="button"
-                  className="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                  className="btn btn-outline-info dropdown-toggle dropdown-toggle-split"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
@@ -141,32 +147,36 @@ class ReviewEvent extends React.Component {
                 <div className="dropdown-menu">
                   {this.state.cons.map((con, i, cons) => (
                     <div className="dropdown-item" key={i}>
-                      <h6>{con}</h6>
-                      <button className="btn-outline-secondary deleteProsCons" type="submit" value={cons[i]} onClick={this.deleteCon}>delete</button>
+                      <h6>
+                        {con}
+                        <button className="btn-outline-info deleteProsCons" type="submit" value={cons[i]} onClick={this.deleteCon}>
+                          <span className="fa fa-trash-alt review-glyph" />
+                        </button>
+                      </h6>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
           </div>
-          
+
           <div className="form-group">
             <h6>Further Reflections</h6>
             <textarea className="journalBox form-control" type="text" name="journal" onChange={this.handleChange} ref="journal" />
           </div>
-   
+
           <button className="btn btn-outline-info" type="submit" onClick={this.handleSubmit}>Submit</button>
-      
+
         </div>
-        
+
         <div className="col-4">
           <img src="/assets/reviewCat.png" className="img-fluid align-self-center" alt="Responsive" />
         </div>
-        
+
         {this.state.redirect && (
           <Redirect to="/" />
         )}
-        
+
       </div>
     );
   }
