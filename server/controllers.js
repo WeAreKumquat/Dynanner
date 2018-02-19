@@ -57,6 +57,20 @@ const addEventToGoogleCal = async (refreshtoken, event, authCode, accesstoken, c
   });
 };
 
+const saveSubscription = (subscription, userGoogleId) => {
+  return new Promise((resolve, reject) => {
+    db.User.findOne({ googleId: userGoogleId }, (err, user) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      user.subscription = subscription;
+      user.save();
+      resolve(user.subscription);
+    });
+  });
+};
+
 const addEvent = async (id, event, callback) => {
   await db.User.findOne({ googleId: id }, async (err, user) => {
     const existingEvent = user.events.reduce((doesExist, e) => {
@@ -189,6 +203,7 @@ const fetchReview = (currentUserId, eventId, callback) => {
 };
 
 module.exports.getEvents = getEvents;
+module.exports.saveSubscription = saveSubscription;
 module.exports.addEvent = addEvent;
 module.exports.getEmail = getEmail;
 module.exports.updateEvent = updateEvent;

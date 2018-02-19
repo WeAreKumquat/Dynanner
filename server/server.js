@@ -3,6 +3,7 @@ const routes = require('./routes');
 const path = require('path');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const webPush = require('web-push');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -75,6 +76,17 @@ passport.use('google', new GoogleStrategy({
     done(error, false, error.message);
   }
 }));
+
+const vapidKeys = {
+  publicKey: process.env.VAPID_PUBLIC_KEY,
+  privateKey: process.env.VAPID_PRIVATE_KEY,
+};
+
+webPush.setVapidDetails(
+  'mailto:emilyyu518@gmail.com',
+  vapidKeys.publicKey,
+  vapidKeys.privateKey,
+);
 
 app.use('/', routes);
 
