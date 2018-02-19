@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 class EventListEntry extends React.Component {
   constructor(props) {
@@ -16,17 +17,17 @@ class EventListEntry extends React.Component {
   }
 
   render() {
-    const { title, date } = this.props.event;
+    const { title, date, category } = this.props.event;
 
     return (
-      <a href="#" className="list-group-item list-group-item-action flex-column align-items-start past-event-entry" onClick={this.handleClick}>
+      <Link to={{ pathname: '/pastEvents', state: {category: category} }} className="list-group-item list-group-item-action flex-column align-items-start past-event-entry" onClick={this.handleClick}>
         <div className="d-flex w-100 justify-content-end">
           {/* date */}
           <small className="date-row">{moment(date).format('dddd, MMMM Do')}</small>
         </div>
         {/* event list entry name */}
         <h6>{title}</h6>
-      </a>
+      </Link>
     );
   }
 }

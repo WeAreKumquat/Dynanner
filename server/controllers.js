@@ -30,8 +30,6 @@ const addEventToGoogleCal = async (refreshtoken, event, authCode, accesstoken, c
     refresh_token: refreshtoken,
   });
   oauth2Client.refreshAccessToken((err, tokens) => {
-    console.log(`TOKENS!!!!: ${tokens.access_token}`);
-    console.log(`date!!!!: ${event.date}`);
     const options = {
       method: 'POST',
       url: 'https://www.googleapis.com/calendar/v3/calendars/primary/events',
@@ -50,8 +48,7 @@ const addEventToGoogleCal = async (refreshtoken, event, authCode, accesstoken, c
       json: true,
     };
     request(options, (error, response, body) => {
-      if (error) throw new Error(error);
-      console.log(`response body from refreshToken-googleCal: ${JSON.stringify(body)}`);
+      if (error) { console.log(`Error trying to add event to google calendar: ${error}`); }
       callback();
     });
   });
