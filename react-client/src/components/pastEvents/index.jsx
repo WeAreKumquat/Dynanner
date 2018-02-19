@@ -79,6 +79,7 @@ class PastEvents extends React.Component {
   handleChange(event) {
     const category = event.target.value;
     this.getPastEvents(category);
+    this.props.location.state.category = category;
   }
 
   render() {
@@ -92,7 +93,7 @@ class PastEvents extends React.Component {
               <div className="d-flex row justify-content-center">
                 <div className="col-lg-10">
                   {/* work/play drop-down */}
-                  <select className="form-control" value={this.state.category} onChange={this.handleChange}>
+                  <select className="form-control" value={this.props.location.state.category} onChange={this.handleChange}>
                     <option value="work">Work</option>
                     <option value="play">Play</option>
                   </select>
