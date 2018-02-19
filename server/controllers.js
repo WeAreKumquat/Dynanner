@@ -50,8 +50,7 @@ const addEventToGoogleCal = async (refreshtoken, event, authCode, accesstoken, c
       json: true,
     };
     request(options, (error, response, body) => {
-      if (error) throw new Error(error);
-      console.log(`response body from refreshToken-googleCal: ${JSON.stringify(body)}`);
+      if (error) { console.log(`Error trying to add event to google calendar: ${error}`); }
       callback();
     });
   });
