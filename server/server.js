@@ -53,7 +53,7 @@ passport.use('google', new GoogleStrategy({
       await newUser.save();
     } else {
       await db.User.findOne({ googleId: profile.id }, (err, user) => {
-        user.token = refreshtoken;
+        user.refreshToken = refreshtoken;
         user.save();
       });
     }
