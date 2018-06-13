@@ -34,7 +34,8 @@ passport.use('google', new GoogleStrategy({
   callbackURL: '/auth/google/callback',
   scope: ['https://www.googleapis.com/auth/plus.login',
     'https://www.googleapis.com/auth/plus.profile.emails.read',
-    'https://www.googleapis.com/auth/calendar'],
+    'https://www.googleapis.com/auth/calendar',
+    'https://www.googleapis.com/auth/photoslibrary.appendonly'],
 }, async (accesstoken, refreshtoken, params, profile, done) => {
   try {
     // check whether current user exists in db
@@ -46,7 +47,7 @@ passport.use('google', new GoogleStrategy({
         refreshToken: refreshtoken,
         accessToken: accesstoken,
         googleId: profile.id,
-        email: profile.emails[0].value,
+        email: profile.emails,
         name: profile.displayName,
         firstName: profile.name.givenName,
       });
@@ -77,16 +78,16 @@ passport.use('google', new GoogleStrategy({
   }
 }));
 
-const vapidKeys = {
-  publicKey: process.env.VAPID_PUBLIC_KEY,
-  privateKey: process.env.VAPID_PRIVATE_KEY,
-};
+// const vapidKeys = {
+//   publicKey: process.env.VAPID_PUBLIC_KEY,
+//   privateKey: process.env.VAPID_PRIVATE_KEY,
+// };
 
-webPush.setVapidDetails(
-  'mailto:emilyyu518@gmail.com',
-  vapidKeys.publicKey,
-  vapidKeys.privateKey,
-);
+// webPush.setVapidDetails(
+//   'mailto:emilyyu518@gmail.com',
+//   vapidKeys.publicKey,
+//   vapidKeys.privateKey,
+// );
 
 app.use('/', routes);
 
