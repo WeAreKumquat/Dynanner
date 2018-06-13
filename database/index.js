@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const mongoURI = process.env.URI || 'mongodb://localhost/dynanner';
+const mongoURI = process.env.URI || 'mongodb://admin:admin1@ds257640.mlab.com:57640/dynannerlegacy';
 mongoose.connect(mongoURI);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
